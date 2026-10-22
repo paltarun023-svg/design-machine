@@ -85,11 +85,11 @@
 <meta property="og:title" content="Design Machine — The Art of the Mod Cut" />
 <meta property="og:description" content="Impeccably tailored contemporary &amp; ethnic fashion from New Delhi. Suits, co-ord sets and festive wear, cut with obsession." />
 <meta property="og:url" content="https://www.designmachine.in/" />
-<meta property="og:image" content="https://images.unsplash.com/photo-1490481651871-ab48e9bb7c66?auto=format&fit=crop&w=1200&q=80" />
+<meta property="og:image" content="assets/hero.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Design Machine — The Art of the Mod Cut" />
 <meta name="twitter:description" content="Impeccably tailored contemporary &amp; ethnic fashion from New Delhi." />
-<meta name="twitter:image" content="https://images.unsplash.com/photo-1490481651871-ab48e9bb7c66?auto=format&fit=crop&w=1200&q=80" />
+<meta name="twitter:image" content="assets/hero.jpg" />
 
 <!-- JSON-LD : ClothingStore -->
 <script type="application/ld+json">
@@ -249,11 +249,13 @@ body{ background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif;
 /* ---------- Scroll reveals ---------- */
 .reveal{
   opacity:0; transform:translateY(40px) scale(.98);
-  transition:opacity 1s var(--ease-expo), transform 1s var(--ease-expo);
+  transition:opacity 1.1s var(--ease-expo), transform 1.1s var(--ease-expo);
   transition-delay:var(--stagger, 0s);
   will-change:opacity, transform;
 }
-.reveal.is-in{ opacity:1; transform:translateY(0) scale(1); }
+.reveal.is-in{ opacity:1; transform:none; }
+/* Fallback: if JS/IO never fires, content must still be visible */
+html.no-js .reveal{ opacity:1; transform:none; }
 
 /* ---------- Ken Burns ---------- */
 @keyframes kenburns{ from{ transform:scale(1); } to{ transform:scale(1.08); } }
@@ -296,9 +298,10 @@ body{ background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif;
 .chip:hover{ border-color:var(--ink); }
 .chip.active{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
 
-/* Product card show/hide */
-.prod{ transition:opacity .6s var(--ease-expo), transform .6s var(--ease-expo); }
-.prod.hidden-item{ opacity:0; transform:scale(.96); pointer-events:none; position:absolute; visibility:hidden; }
+/* Product card show/hide (filter transitions) */
+.prod{ transition:opacity .55s var(--ease-expo), transform .55s var(--ease-expo); }
+.prod.is-out{ opacity:0; transform:translateY(14px) scale(.97); pointer-events:none; }
+.prod.hidden-item{ position:absolute !important; visibility:hidden; }
 
 /* ---------- Forms ---------- */
 .field{
@@ -383,10 +386,10 @@ select.field option{ background:var(--paper); }
   <!-- Background image with Ken Burns -->
   <div class="absolute inset-0">
     <img
-      src="https://images.unsplash.com/photo-1490481651871-ab48e9bb7c66?auto=format&fit=crop&w=2000&q=80"
-      alt="Editorial portrait of a woman in an impeccably tailored contemporary Indian suit"
+      src="assets/hero.jpg"
+      alt="Zivanya silk cord-set — draped kurta and straight trousers photographed at Design Machine, New Delhi"
       class="kenburns absolute inset-0 h-full w-full object-cover"
-      fetchpriority="high" width="2000" height="1333" />
+      fetchpriority="high" width="1600" height="2844" />
     <div class="absolute inset-0 bg-gradient-to-r from-paper via-paper/70 to-transparent"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-paper/60 via-transparent to-transparent"></div>
   </div>
@@ -553,10 +556,10 @@ select.field option{ background:var(--paper); }
     <div class="grid grid-cols-12 gap-6 md:gap-8 mb-20">
       <a href="#collection-grid" class="group col-span-12 md:col-span-7 relative overflow-hidden block reveal">
         <div class="swap-wrap aspect-[16/10] md:aspect-[4/3]">
-          <img class="swap-base" loading="lazy" width="1200" height="900" alt="Editorial shot of a tailored women's suit in deep oxblood"
-               src="https://images.unsplash.com/photo-1594938298543-134160d3a4b6?auto=format&fit=crop&w=1400&q=80" />
-          <img class="swap-top" loading="lazy" width="1200" height="900" alt="Macro close-up of hand-finished lapel stitching"
-               src="https://images.unsplash.com/photo-1559582794-66abf4fa2ccf?auto=format&fit=crop&w=1400&q=80" />
+          <img class="swap-base" loading="lazy" width="1200" height="900" alt="Aavrielle ziraff tissue suit with scalloped kurta and churidar, photographed at Design Machine"
+               src="assets/festive.jpg" />
+          <img class="swap-top" loading="lazy" width="1200" height="900" alt="Varnika banarasi unstitched suit — woven border detail"
+               src="assets/detail.jpg" />
         </div>
         <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex items-end justify-between bg-gradient-to-t from-ink/70 to-transparent">
           <h3 class="font-display text-3xl md:text-5xl leading-none" style="color:#FAF9F7">The Suit<span class="italic font-light">&nbsp;Edit</span></h3>
@@ -566,10 +569,10 @@ select.field option{ background:var(--paper); }
       <div class="col-span-12 md:col-span-5 flex flex-col gap-6 md:gap-8">
         <a href="#collection-grid" class="group relative overflow-hidden block reveal" style="transition-delay:.08s">
           <div class="swap-wrap aspect-[16/9] md:aspect-[2/1]">
-            <img class="swap-base" loading="lazy" width="1200" height="675" alt="Woman in a soft co-ord set walking through warm daylight"
-                 src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1400&q=80" />
-            <img class="swap-top" loading="lazy" width="1200" height="675" alt="Macro detail of woven cotton cord-set fabric"
-                 src="https://images.unsplash.com/photo-1528458902307-9b4083c1fa70?auto=format&fit=crop&w=1400&q=80" />
+            <img class="swap-base" loading="lazy" width="1200" height="675" alt="Orvielle pure crepe co-ord set in soft daylight"
+                 src="assets/cordsets.jpg" />
+            <img class="swap-top" loading="lazy" width="1200" height="675" alt="Veylora pure crepe suit — relaxed two-piece drape"
+                 src="assets/suits.jpg" />
           </div>
           <div class="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between bg-gradient-to-t from-ink/70 to-transparent">
             <h3 class="font-display text-3xl leading-none" style="color:#FAF9F7">Co-Ord Sets</h3>
@@ -578,10 +581,10 @@ select.field option{ background:var(--paper); }
         </a>
         <a href="#collection-grid" class="group relative overflow-hidden block reveal" style="transition-delay:.16s">
           <div class="swap-wrap aspect-[16/9] md:aspect-[2/1]">
-            <img class="swap-base" loading="lazy" width="1200" height="675" alt="Festive Indian fusion wear in gold light"
-                 src="https://images.unsplash.com/photo-1583391733956-6c022e1f54b7?auto=format&fit=crop&w=1400&q=80" />
-            <img class="swap-top" loading="lazy" width="1200" height="675" alt="Extreme close-up of zardozi embroidery on silk"
-                 src="https://images.unsplash.com/photo-1610030469983-98e56c6cc6c1?auto=format&fit=crop&w=1400&q=80" />
+            <img class="swap-base" loading="lazy" width="1200" height="675" alt="Zarevyn velvet unstitched suit — festive edit from the atelier"
+                 src="assets/manifesto.jpg" />
+            <img class="swap-top" loading="lazy" width="1200" height="675" alt="Zivanya silk cord-set — shimmer tissue detail"
+                 src="assets/p-zivanya.jpg" />
           </div>
           <div class="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between bg-gradient-to-t from-ink/70 to-transparent">
             <h3 class="font-display text-3xl leading-none" style="color:#FAF9F7">Festive&nbsp;<span class="italic font-light">Wear</span></h3>
@@ -594,151 +597,142 @@ select.field option{ background:var(--paper); }
     <!-- ===== Product grid (#collection-grid) ===== -->
     <div id="collection-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
 
-      <!-- Item 1 -->
-      <article class="prod group reveal" data-occasion="workwear" data-fabric="crepe" data-silhouette="tailored">
+            <!-- Item 1 -->
+      <article class="prod group reveal" data-occasion="workwear" data-fabric="crepe" data-silhouette="tailored" style="transition-delay:.0s">
         <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
-          <img class="swap-base" loading="lazy" width="900" height="1200" alt="The Boardroom Blazer Suit in charcoal crepe"
-               src="https://images.unsplash.com/photo-1487222477894-894e5fc26194?auto=format&fit=crop&w=1000&q=80" />
-          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Macro of crepe weave and pick stitching"
-               src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1000&q=80" />
-          <span class="absolute top-4 left-4 label px-3 py-1.5" style="background:rgba(250,249,247,.9)">SS/26</span>
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Elarisse pure crepe suit in soft grey — shirt-style kurta with straight trousers"
+               src="assets/p-elarisse.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Elarisse pure crepe suit — fabric and finish detail"
+               src="assets/detail.jpg" />
         </div>
-        <p class="label text-ink/40 mb-1.5">Tailored Suit · Crepe</p>
+        <p class="label text-ink/40 mb-1.5">Suit Set · Pure Crepe</p>
         <div class="flex justify-between items-baseline gap-4">
-          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">The Boardroom Blazer</h3>
-          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;8,900</span>
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">The Elarisse Crepe Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;4,200</span>
         </div>
-        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Two depths of shoulder</p>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Shirt-weight crepe, matte finish</p>
       </article>
-
-      <!-- Item 2 : offset -->
-      <article class="prod group reveal sm:mt-16" data-occasion="festive" data-fabric="silk" data-silhouette="structured" style="transition-delay:.08s">
-        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
-          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Ivory Zari Festive Jacket on model"
-               src="https://images.unsplash.com/photo-1515886657613-9f37151bb5b5?auto=format&fit=crop&w=1000&q=80" />
-          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Macro of zari threadwork on ivory silk"
-               src="https://images.unsplash.com/photo-1596993100481-e4dc5f84b36f?auto=format&fit=crop&w=1000&q=80" />
-          <span class="absolute top-4 left-4 label px-3 py-1.5" style="background:#6E1423;color:#FAF9F7">Atelier Exclusive</span>
-        </div>
-        <p class="label text-ink/40 mb-1.5">Festive Set · Pure Silk</p>
-        <div class="flex justify-between items-baseline gap-4">
-          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Zari Ivory Jacket</h3>
-          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;14,500</span>
-        </div>
-        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Hand-embroidered yoke</p>
-      </article>
-
-      <!-- Item 3 -->
-      <article class="prod group reveal" data-occasion="everyday" data-fabric="linen" data-silhouette="relaxed" style="transition-delay:.16s">
-        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
-          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Sand Linen Co-Ord set in morning light"
-               src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=80" />
-          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Close-up of linen texture and mother-of-pearl button"
-               src="https://images.unsplash.com/photo-1551024709-83f2bd0cb6ff?auto=format&fit=crop&w=1000&q=80" />
-        </div>
-        <p class="label text-ink/40 mb-1.5">Co-Ord Set · European Linen</p>
-        <div class="flex justify-between items-baseline gap-4">
-          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Sunday Sand Co-Ord</h3>
-          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;6,400</span>
-        </div>
-        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Garment-washed softness</p>
-      </article>
-
-      <!-- Item 4 -->
-      <article class="prod group reveal" data-occasion="workwear" data-fabric="linen" data-silhouette="tailored">
-        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
-          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Oxblood linen waistcoat suit"
-               src="https://images.unsplash.com/photo-1539109136884-3a5b46d2eb0a?auto=format&fit=crop&w=1000&q=80" />
-          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Macro of canvas interlining edge"
-               src="https://images.unsplash.com/photo-1564257631407-ecdeb0a48a82?auto=format&fit=crop&w=1000&q=80" />
-        </div>
-        <p class="label text-ink/40 mb-1.5">Waistcoat Suit · Linen Blend</p>
-        <div class="flex justify-between items-baseline gap-4">
-          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Oxblood Three-Piece</h3>
-          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;11,200</span>
-        </div>
-        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Half-canvassed chest</p>
-      </article>
-
-      <!-- Item 5 : offset -->
+      <!-- Item 2 -->
       <article class="prod group reveal sm:mt-16" data-occasion="festive" data-fabric="silk" data-silhouette="relaxed" style="transition-delay:.08s">
         <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
-          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Emerald drape kurta set for festive evenings"
-               src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=1000&q=80" />
-          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Macro of raw silk drape fold"
-               src="https://images.unsplash.com/photo-1620997468385-4cfd8817a42d?auto=format&fit=crop&w=1000&q=80" />
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Zivanya silk cord-set in jewel tones with draped kurta and palazzo"
+               src="assets/p-zivanya.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Zivanya silk cord-set — shimmer silk detail"
+               src="assets/detail.jpg" />
         </div>
-        <p class="label text-ink/40 mb-1.5">Drape Kurta Set · Raw Silk</p>
+        <p class="label text-ink/40 mb-1.5">Co-Ord Set · Pure Silk</p>
         <div class="flex justify-between items-baseline gap-4">
-          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Midnight Emerald Drape</h3>
-          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;12,800</span>
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Zivanya Silk Cord-Set</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;3,000</span>
         </div>
-        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Adjustable side gathers</p>
+        <p class="mt-2 text-sm text-ink/50">Unstitched · Gajji silk with natural sheen</p>
       </article>
-
+      <!-- Item 3 -->
+      <article class="prod group reveal" data-occasion="everyday" data-fabric="cotton" data-silhouette="relaxed" style="transition-delay:.16s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Myraya cotton suit in pastel print — relaxed everyday two-piece"
+               src="assets/p-myraya.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Myraya cotton suit — breathable cotton weave"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Cotton Suit · Pure Cotton</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">The Myraya Cotton Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;1,400</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · All-day breathability</p>
+      </article>
+      <!-- Item 4 -->
+      <article class="prod group reveal" data-occasion="festive" data-fabric="tissue" data-silhouette="structured" style="transition-delay:.0s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Aavrielle ziraff tissue suit with scalloped kurta and churidar"
+               src="assets/p-aavrielle.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Aavrielle ziraff tissue suit — shimmering tissue drape"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Festive Suit · Ziraff Tissue</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Aavrielle Ziraff Tissue Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;6,500</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Unstitched · Light-touch shimmer weave</p>
+      </article>
+      <!-- Item 5 -->
+      <article class="prod group reveal sm:mt-16" data-occasion="workwear" data-fabric="crepe" data-silhouette="tailored" style="transition-delay:.08s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Orvielle pure crepe co-ord set — belted kurta with wide trousers"
+               src="assets/p-orvielle.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Orvielle pure crepe cord-set — seam and drape detail"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Co-Ord Set · Pure Crepe</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Orvielle Crepe Co-Ord</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;4,000</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Wrinkle-resistant travel weave</p>
+      </article>
       <!-- Item 6 -->
-      <article class="prod group reveal" data-occasion="everyday" data-fabric="crepe" data-silhouette="structured" style="transition-delay:.16s">
+      <article class="prod group reveal" data-occasion="everyday" data-fabric="crepe" data-silhouette="relaxed" style="transition-delay:.16s">
         <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
-          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Stone crepe shirtdress with mod cut hem"
-               src="https://images.unsplash.com/photo-1496747611176-8432a2d1e64d?auto=format&fit=crop&w=1000&q=80" />
-          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Macro of French seam finish"
-               src="https://images.unsplash.com/photo-1558171813-4c08f381e917?auto=format&fit=crop&w=1000&q=80" />
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Nayelle pure crepe suit in muted floral print"
+               src="assets/p-nayelle.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Nayelle pure crepe suit — curved hem detail"
+               src="assets/detail.jpg" />
         </div>
-        <p class="label text-ink/40 mb-1.5">Shirtdress · Washable Crepe</p>
+        <p class="label text-ink/40 mb-1.5">Daily Suit · Pure Crepe</p>
         <div class="flex justify-between items-baseline gap-4">
-          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">The Mod Cut Shirtdress</h3>
-          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;5,900</span>
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">The Nayelle Crepe Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;2,499</span>
         </div>
-        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Signature curved hem</p>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Signature mod-cut ease</p>
       </article>
-
       <!-- Item 7 -->
-      <article class="prod group reveal" data-occasion="workwear" data-fabric="silk" data-silhouette="relaxed">
+      <article class="prod group reveal" data-occasion="festive" data-fabric="banarasi" data-silhouette="structured" style="transition-delay:.0s">
         <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
-          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Taupe silk blazer with soft shoulder"
-               src="https://images.unsplash.com/photo-1508427953055-ba3b737310d0?auto=format&fit=crop&w=1000&q=80" />
-          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Macro of silk satin lapel sheen"
-               src="https://images.unsplash.com/photo-1550614001-5db0a7d228a2?auto=format&fit=crop&w=1000&q=80" />
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Varnika banarasi unstitched suit with woven brocade border"
+               src="assets/p-varnika.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Varnika banarasi unstitched suit — banarasi weave close-up"
+               src="assets/detail.jpg" />
         </div>
-        <p class="label text-ink/40 mb-1.5">Soft Blazer · Silk Satin</p>
+        <p class="label text-ink/40 mb-1.5">Unstitched Suit · Banarasi</p>
         <div class="flex justify-between items-baseline gap-4">
-          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Unstructured Taupe</h3>
-          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;9,600</span>
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Varnika Banarasi Edit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;4,000</span>
         </div>
-        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Unlined, travel-ready</p>
+        <p class="mt-2 text-sm text-ink/50">Unstitched · Handloom-inspired brocade border</p>
       </article>
-
-      <!-- Item 8 : offset -->
-      <article class="prod group reveal sm:mt-16" data-occasion="everyday" data-fabric="linen" data-silhouette="tailored" style="transition-delay:.08s">
+      <!-- Item 8 -->
+      <article class="prod group reveal sm:mt-16" data-occasion="everyday" data-fabric="crepe" data-silhouette="tailored" style="transition-delay:.08s">
         <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
-          <img class="swap-base" loading="lazy" width="900" height="1200" alt="White linen cigarette trouser and jacket set"
-               src="https://images.unsplash.com/photo-1524504388940-b2c508e0d401?auto=format&fit=crop&w=1000&q=80" />
-          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Macro of crisp linen lapel edge"
-               src="https://images.unsplash.com/photo-1557563106-3f42a5bf2c25?auto=format&fit=crop&w=1000&q=80" />
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Vionelle pure crepe cord-set in soft neutral tones"
+               src="assets/p-veyloracord.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Vionelle pure crepe cord-set — piping and placket detail"
+               src="assets/detail.jpg" />
         </div>
-        <p class="label text-ink/40 mb-1.5">Two-Piece Set · Summer Linen</p>
+        <p class="label text-ink/40 mb-1.5">Co-Ord Set · Pure Crepe</p>
         <div class="flex justify-between items-baseline gap-4">
-          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Chalk Line Set</h3>
-          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;7,800</span>
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Vionelle Crepe Cord-Set</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;4,000</span>
         </div>
-        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · High-rise, ankle-grazing</p>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Sharp line, soft hand</p>
       </article>
-
       <!-- Item 9 -->
-      <article class="prod group reveal" data-occasion="festive" data-fabric="crepe" data-silhouette="structured" style="transition-delay:.16s">
+      <article class="prod group reveal" data-occasion="festive" data-fabric="velvet" data-silhouette="structured" style="transition-delay:.16s">
         <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
-          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Wine crepe cape jacket for sangeet nights"
-               src="https://images.unsplash.com/photo-1519415510236-718b601f6b8f?auto=format&fit=crop&w=1000&q=80" />
-          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Macro of cape vent and lining stitch"
-               src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1000&amp;q=80" />
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Zarevyn velvet unstitched suit in deep tone for winter festive wear"
+               src="assets/p-zarevyn.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Zarevyn velvet unstitched suit — pile and light of the velvet"
+               src="assets/detail.jpg" />
         </div>
-        <p class="label text-ink/40 mb-1.5">Cape Jacket · Heavy Crepe</p>
+        <p class="label text-ink/40 mb-1.5">Winter Festive · Velvet</p>
         <div class="flex justify-between items-baseline gap-4">
-          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Sangeet Cape No.&nbsp;7</h3>
-          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;10,400</span>
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Zarevyn Velvet Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;7,000</span>
         </div>
-        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Hidden arm slits</p>
+        <p class="mt-2 text-sm text-ink/50">Unstitched · Short-pile seasonal velvet</p>
       </article>
+
     </div>
 
     <!-- Empty state -->
@@ -759,7 +753,7 @@ select.field option{ background:var(--paper); }
   <!-- Parallax backdrop -->
   <div class="absolute inset-0 -z-10 opacity-[0.05]" aria-hidden="true">
     <img class="parallax absolute inset-x-0 -top-[15%] h-[130%] w-full object-cover" loading="lazy" width="2000" height="1333" alt=""
-         src="https://images.unsplash.com/photo-1557673154-39f172778ee8?auto=format&fit=crop&w=2000&q=60" />
+         src="assets/px-fit.jpg" />
   </div>
 
   <div class="mx-auto max-w-[1600px] px-6 md:px-12">
@@ -776,10 +770,10 @@ select.field option{ background:var(--paper); }
       <div class="lg:col-span-5">
         <div class="lg:sticky lg:top-28">
           <div class="swap-wrap group aspect-[4/5] mb-8">
-            <img class="swap-base" loading="lazy" width="1000" height="1250" alt="Tailor measuring a client during a fitting at the Design Machine atelier"
-                 src="https://images.unsplash.com/photo-1557672726-7226ae3a441b?auto=format&fit=crop&w=1200&q=80" />
-            <img class="swap-top" loading="lazy" width="1000" height="1250" alt="Macro of measuring tape against stitched seam allowance"
-                 src="https://images.unsplash.com/photo-1528459063033-e10c3f36af9c?auto=format&fit=crop&w=1200&q=80" />
+            <img class="swap-base" loading="lazy" width="1000" height="1250" alt="Zivanya silk cord-set draped on the fit form at Design Machine"
+                 src="assets/hero.jpg" />
+            <img class="swap-top" loading="lazy" width="1000" height="1250" alt="Aavrielle ziraff tissue suit — scalloped hem after fitting"
+                 src="assets/festive.jpg" />
           </div>
           <blockquote class="font-display italic text-2xl md:text-[1.7rem] leading-snug text-ink/80 border-l border-oxblood pl-6">
             &ldquo;We don't fit women to our sizes.<br/>We cut our sizes to women.&rdquo;
@@ -875,7 +869,7 @@ select.field option{ background:var(--paper); }
 <section class="relative py-32 md:py-48 overflow-hidden" aria-label="House statement">
   <div class="absolute inset-0" aria-hidden="true">
     <img class="parallax absolute inset-x-0 -top-[20%] h-[140%] w-full object-cover scale-110" loading="lazy" width="2000" height="1200" alt=""
-         src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=2000&q=80" />
+         src="assets/px-festive.jpg" />
     <div class="absolute inset-0 bg-ink/60"></div>
   </div>
   <div class="relative z-10 mx-auto max-w-[1100px] px-6 text-center">
@@ -906,10 +900,10 @@ select.field option{ background:var(--paper); }
     <article class="reveal grid grid-cols-12 gap-6 md:gap-10 items-center mb-24 md:mb-32">
       <div class="col-span-12 md:col-span-7 order-1">
         <div class="swap-wrap group aspect-[16/10]">
-          <img class="swap-base" loading="lazy" width="1600" height="1000" alt="Interior of the Design Machine flagship store in Fateh Nagar, New Delhi"
-               src="https://images.unsplash.com/photo-1441986150356-d1e979bf2d88?auto=format&fit=crop&w=1600&q=80" />
-          <img class="swap-top" loading="lazy" width="1600" height="1000" alt="Macro of shears and chalk on the atelier cutting table"
-               src="https://images.unsplash.com/photo-1528459063033-e10c3f36af9c?auto=format&fit=crop&w=1600&q=80" />
+          <img class="swap-base" loading="lazy" width="1600" height="1000" alt="The Nayelle pure crepe suit — worn at the Design Machine atelier, Fateh Nagar"
+               src="assets/atelier-1.jpg" />
+          <img class="swap-top" loading="lazy" width="1600" height="1000" alt="Elarisse pure crepe suit — cut-line detail from the atelier"
+               src="assets/atelier-2.jpg" />
         </div>
       </div>
       <div class="col-span-12 md:col-span-5 md:pl-4 order-2">
@@ -940,10 +934,10 @@ select.field option{ background:var(--paper); }
       </div>
       <div class="col-span-12 md:col-span-6 md:col-start-7 md:order-2 order-1">
         <div class="swap-wrap group aspect-[16/10] md:aspect-[5/4]">
-          <img class="swap-base" loading="lazy" width="1600" height="1280" alt="Design Machine Tilak Nagar studio interior with fitting salon"
-               src="https://images.unsplash.com/photo-1567350522447-5b9cbb886c6f?auto=format&fit=crop&w=1600&q=80" />
-          <img class="swap-top" loading="lazy" width="1600" height="1280" alt="Macro of hand-stitched buttonhole thread"
-               src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1600&q=80" />
+          <img class="swap-base" loading="lazy" width="1600" height="1280" alt="Veylora pure crepe suit — studio edit for the Tilak Nagar annex"
+               src="assets/suits.jpg" />
+          <img class="swap-top" loading="lazy" width="1600" height="1280" alt="Orvielle pure crepe cord-set — hand-finished seam detail"
+               src="assets/cordsets.jpg" />
         </div>
       </div>
     </article>
@@ -1206,6 +1200,15 @@ select.field option{ background:var(--paper); }
   }, { threshold: 0.15, rootMargin: '0px 0px -4% 0px' });
   document.querySelectorAll('.mask-group').forEach(h => ioMask.observe(h));
 
+  // Safety net: anything still hidden shortly after load becomes visible,
+  // so no section can ever get stuck mid-transition.
+  window.addEventListener('load', () => setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.is-in), .mask-group:not(.revealed)').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 1.2) { el.classList.add('is-in'); el.classList.add('revealed'); }
+    });
+  }, 2600));
+
   /* ---------- 5. Parallax : backgrounds drift at 0.85x scroll speed ---------- */
   const parallaxEls = Array.from(document.querySelectorAll('.parallax'));
   let ticking = false;
@@ -1243,11 +1246,13 @@ select.field option{ background:var(--paper); }
         (state.silhouette === 'all' || p.dataset.silhouette === state.silhouette);
       if (ok) {
         p.classList.remove('hidden-item');
-        p.style.visibility = 'visible';
-        p.style.position = '';
+        // next frame: fade/rise back in
+        requestAnimationFrame(() => p.classList.remove('is-out'));
         visible++;
       } else {
-        p.classList.add('hidden-item');
+        p.classList.add('is-out');
+        // keep it out of flow only after the fade-out has played
+        setTimeout(() => { if (p.classList.contains('is-out')) p.classList.add('hidden-item'); }, 560);
       }
     });
     countEl.textContent = 'Showing ' + visible + (visible === 1 ? ' piece' : ' pieces');

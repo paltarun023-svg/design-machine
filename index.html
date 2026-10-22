@@ -24,13 +24,17 @@
      classes using clamp() — tune min/max there, not per-element.
 
   3. IMAGES
-     All imagery points at Unsplash CDN URLs as editorial placeholders.
-     Replace every src="https://images.unsplash.com/..." with your own
-     hosted photography. KEEP width/height attributes and aspect-[n/m]
-     wrapper classes so images reserve space and never shift layout.
+     All imagery is LOCAL, served from the /assets folder that ships next
+     to index.html (real Design Machine photography + 3 testimonial
+     avatars). No external image CDNs are used, so nothing can break if a
+     URL goes dead. To replace a photo, overwrite the same filename in
+     /assets — KEEP width/height attributes and aspect-[n/m] wrapper
+     classes so images reserve space and never shift layout.
      Each product/category card has TWO images by design: a lifestyle
      shot (.swap-base) and a macro detail shot (.swap-top) that cross-fade
      on hover. Swap only the URLs; the interaction stays intact.
+     IMPORTANT FOR DEPLOYMENT: drag-and-drop the ENTIRE FOLDER (index.html
+     + assets/) to Netlify/Vercel — not just the HTML file.
 
   4. PRODUCTS / FILTERS
      Product cards live in #collection-grid. Each <article> carries
@@ -952,21 +956,21 @@ select.field option{ background:var(--paper); }
       <figure class="reveal col-span-12 md:col-span-7 lg:col-span-5">
         <blockquote class="font-display text-2xl md:text-[1.9rem] leading-snug mb-6">&ldquo;I have bought suits for twenty years and never once needed alterations — until I stopped needing them anywhere else. The fit is <em class="italic text-oxblood">quietly perfect</em>.&rdquo;</blockquote>
         <figcaption class="flex items-center gap-4">
-          <img class="w-12 h-12 rounded-full object-cover" loading="lazy" width="96" height="96" alt="Portrait of Ananya Malhotra" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80" />
+          <img class="w-12 h-12 rounded-full object-cover" loading="lazy" width="96" height="96" alt="Portrait of Ananya Malhotra" src="assets/avatar-1.jpg" />
           <div><p class="text-sm font-medium">Ananya Malhotra</p><p class="label text-ink/40 mt-1">Partner, Law Firm · Vasant Vihar</p></div>
         </figcaption>
       </figure>
       <figure class="reveal col-span-12 md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-7 lg:mt-16" style="transition-delay:.08s">
         <blockquote class="font-display text-2xl md:text-[1.7rem] leading-snug mb-6">&ldquo;Ordered online at size 3XL expecting disappointment. The chart was honest to the millimetre. It arrived fitting like it was cut for me — because it was.&rdquo;</blockquote>
         <figcaption class="flex items-center gap-4">
-          <img class="w-12 h-12 rounded-full object-cover" loading="lazy" width="96" height="96" alt="Portrait of Rehan Kaur" src="https://images.unsplash.com/photo-1531123897005-de7cf2fa4ea5?auto=format&fit=crop&w=200&q=80" />
+          <img class="w-12 h-12 rounded-full object-cover" loading="lazy" width="96" height="96" alt="Portrait of Rehan Kaur" src="assets/avatar-2.jpg" />
           <div><p class="text-sm font-medium">Rehan Kaur</p><p class="label text-ink/40 mt-1">Architect · Chandigarh</p></div>
         </figcaption>
       </figure>
       <figure class="reveal col-span-12 lg:col-span-6 lg:col-start-6 mt-4" style="transition-delay:.16s">
         <blockquote class="font-display text-2xl md:text-[1.9rem] leading-snug mb-6">&ldquo;My daughter's entire sangeet trousseau came from the Tilak Nagar salon. Two hours of styling, chai, zero pressure. We left with four pieces and a plan for the whole wedding season.&rdquo;</blockquote>
         <figcaption class="flex items-center gap-4">
-          <img class="w-12 h-12 rounded-full object-cover" loading="lazy" width="96" height="96" alt="Portrait of Sunita Rao" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80" />
+          <img class="w-12 h-12 rounded-full object-cover" loading="lazy" width="96" height="96" alt="Portrait of Sunita Rao" src="assets/avatar-3.jpg" />
           <div><p class="text-sm font-medium">Sunita Rao</p><p class="label text-ink/40 mt-1">Regular since 2016 · Dwarka</p></div>
         </figcaption>
       </figure>

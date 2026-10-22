@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--
+======================================================================
+  DESIGN MACHINE — THE MOD CUT STUDIO
+  Premium single-page flagship site · index.html
+======================================================================
+
+  HOW TO CUSTOMIZE (client handover notes)
+  ------------------------------------------------------------------
+  1. BRAND COLORS
+     Search for ":root{" in the <style> block. Four tokens control the
+     entire palette: --paper (#FAF9F7 warm off-white), --ink (#141414),
+     --oxblood (#6E1423 signature accent), --champagne (#C6A15B support).
+     The same tokens are mirrored inside tailwind.config below — change
+     both places to re-skin the site. Never use pure #FFFFFF / #000000.
+
+  2. TYPOGRAPHY
+     Fraunces (display serif) + Inter (body grotesque) load from Google
+     Fonts. Fluid sizes are handled by .h-fluid-* and .body-fluid utility
+     classes using clamp() — tune min/max there, not per-element.
+
+  3. IMAGES
+     All imagery is LOCAL, served from the /assets folder that ships next
+     to index.html (real Design Machine photography + 3 testimonial
+     avatars). No external image CDNs are used, so nothing can break if a
+     URL goes dead. To replace a photo, overwrite the same filename in
+     /assets — KEEP width/height attributes and aspect-[n/m] wrapper
+     classes so images reserve space and never shift layout.
+     Each product/category card has TWO images by design: a lifestyle
+     shot (.swap-base) and a macro detail shot (.swap-top) that cross-fade
+     on hover. Swap only the URLs; the interaction stays intact.
+     IMPORTANT FOR DEPLOYMENT: drag-and-drop the ENTIRE FOLDER (index.html
+     + assets/) to Netlify/Vercel — not just the HTML file.
+
+  4. PRODUCTS / FILTERS
+     Product cards live in #collection-grid. Each <article> carries
+     data-occasion, data-fabric and data-silhouette attributes; the chip
+     filters read these values automatically. Add a card, tag its three
+     attributes, done — no JS changes needed. Update the chip buttons in
+     the filter panel if you add new categories.
+
+  5. SIZE CHART
+     The Mod Cut Fit Guide tables are plain semantic HTML (<table>). Edit
+     the numbers directly. Keep XS–4XL inclusive grading honest to your
+     actual patterns to minimize returns.
+
+  6. CONTACT FORM
+     The form currently simulates success client-side (see JS block 7).
+     To make it live, either:
+       a) Netlify Forms: add  data-netlify="true"  to the <form> tag, or
+       b) Formspree: set  action="https://formspree.io/f/YOUR_ID"
+          method="POST"  and remove the e.preventDefault() line.
+     A honeypot input (name="bot-field") is already inside the form for
+     spam protection — keep it when wiring either service.
+
+  7. SEO / LOCAL DATA
+     Update the <title>, meta description, Open Graph tags and the
+     JSON-LD ClothingStore block (phone, addresses, hours, socials).
+     Change canonical URLs from designmachine.in to your real domain.
+
+  8. MOTION TUNING
+     Global easing is cubic-bezier(0.16,1,0.3,1) stored in --ease-expo.
+     Preloader delay: JS block 1 ("enterSite"). Parallax factor: JS
+     block 5 (0.15 offset = 0.85x scroll speed). All motion respects
+     prefers-reduced-motion automatically.
+
+  DEPLOY (Netlify / Vercel) — under 60 seconds
+  ------------------------------------------------------------------
+  NETLIFY DRAG-DROP:  netlify.com/drop → drag this folder in → live URL.
+  NETLIFY CLI:        npm i -g netlify-cli && netlify deploy --prod
+  VERCEL:             npm i -g vercel && vercel --prod   (or push the
+                      repo to GitHub → vercel.com → Import → Done)
+  No build step. One file. That's the whole stack.
+======================================================================
+-->
+<title>Design Machine — The Mod Cut Studio | Contemporary &amp; Ethnic Fashion Atelier, New Delhi</title>
+<meta name="description" content="Design Machine (The Mod Cut Studio) is a New Delhi fashion atelier specializing in impeccably tailored suits, co-ord sets and festive wear. Shop curated collections online or book a VIP styling session at Fateh Nagar &amp; Tilak Nagar." />
+<meta name="keywords" content="mod cuts, tailoring New Delhi, women suits, co-ord sets, festive wear, bespoke alterations, Design Machine, Fateh Nagar, Tilak Nagar" />
+<meta name="theme-color" content="#FAF9F7" />
+<link rel="canonical" href="https://www.designmachine.in/" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Design Machine — The Mod Cut Studio" />
+<meta property="og:title" content="Design Machine — The Art of the Mod Cut" />
+<meta property="og:description" content="Impeccably tailored contemporary &amp; ethnic fashion from New Delhi. Suits, co-ord sets and festive wear, cut with obsession." />
+<meta property="og:url" content="https://www.designmachine.in/" />
+<meta property="og:image" content="assets/hero.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Design Machine — The Art of the Mod Cut" />
+<meta name="twitter:description" content="Impeccably tailored contemporary &amp; ethnic fashion from New Delhi." />
+<meta name="twitter:image" content="assets/hero.jpg" />
+
+<!-- JSON-LD : ClothingStore -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ClothingStore",
+  "name": "Design Machine — The Mod Cut Studio",
+  "description": "Women's contemporary & ethnic fashion atelier specializing in impeccably tailored suits, co-ord sets and festive wear.",
+  "url": "https://www.designmachine.in/",
+  "telephone": "+91-98110-00000",
+  "priceRange": "₹₹₹",
+  "currenciesAccepted": "INR",
+  "paymentAccepted": "Cash, Credit Card, UPI",
+  "address": [
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "Shop No. 12, Main Market, Fateh Nagar",
+      "addressLocality": "New Delhi",
+      "addressRegion": "Delhi",
+      "postalCode": "110018",
+      "addressCountry": "IN"
+    },
+    {
+      "@type": "PostalAddress",
+      "streetAddress": "Block A, Main Bazaar, Tilak Nagar",
+      "addressLocality": "New Delhi",
+      "addressRegion": "Delhi",
+      "postalCode": "110018",
+      "addressCountry": "IN"
+    }
+  ],
+  "geo": { "@type": "GeoCoordinates", "latitude": 28.5494, "longitude": 77.1842 },
+  "openingHoursSpecification": [{
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    "opens": "10:30",
+    "closes": "20:30"
+  }],
+  "sameAs": [
+    "https://www.instagram.com/designmachine.delhi",
+    "https://www.facebook.com/designmachine.delhi"
+  ]
+}
+</script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        paper:   '#FAF9F7',
+        linen:   '#F1EEE8',
+        ink:     '#141414',
+        oxblood: '#6E1423',
+        champagne: '#C6A15B',
+      },
+      fontFamily: {
+        display: ['Fraunces', 'Georgia', 'serif'],
+        sans: ['Inter', 'Helvetica Neue', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+
+<style>
+/* ============================================================
+   DESIGN MACHINE — CUSTOM STYLES
+   ============================================================ */
+:root{
+  --paper:#FAF9F7; --ink:#141414; --oxblood:#6E1423; --champagne:#C6A15B;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+html{ scroll-behavior:smooth; }
+body{ background:var(--paper); color:var(--ink); font-family:'Inter',sans-serif; overflow-x:hidden; }
+
+::selection{ background:var(--oxblood); color:var(--paper); }
+::-webkit-scrollbar{ width:6px; }
+::-webkit-scrollbar-track{ background:var(--paper); }
+::-webkit-scrollbar-thumb{ background:rgba(20,20,20,.25); border-radius:0; }
+::-webkit-scrollbar-thumb:hover{ background:var(--oxblood); }
+*{ scrollbar-width:thin; scrollbar-color:rgba(20,20,20,.25) var(--paper); }
+
+.font-display{ font-family:'Fraunces',serif; }
+.label{ font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-weight:500; }
+.h-fluid-hero{ font-size:clamp(3rem, 9.5vw, 8.5rem); line-height:.94; letter-spacing:-.02em; }
+.h-fluid-xl{ font-size:clamp(2.4rem, 6.5vw, 5.5rem); line-height:1.02; letter-spacing:-.015em; }
+.h-fluid-lg{ font-size:clamp(1.9rem, 4.5vw, 3.6rem); line-height:1.06; letter-spacing:-.01em; }
+.h-fluid-md{ font-size:clamp(1.45rem, 3vw, 2.3rem); line-height:1.12; }
+.body-fluid{ font-size:clamp(1rem, 1.15vw, 1.125rem); line-height:1.7; }
+
+/* Hairlines */
+.hairline{ border:1px solid rgba(20,20,20,.10); }
+.rule{ height:1px; background:rgba(20,20,20,.10); }
+
+/* ---------- Buttons ---------- */
+.btn-sharp{
+  display:inline-flex; align-items:center; gap:.75rem;
+  padding:1.05rem 2.2rem; border:1px solid var(--ink);
+  font-size:11px; letter-spacing:.2em; text-transform:uppercase; font-weight:500;
+  position:relative; overflow:hidden; transition:color .5s var(--ease-expo);
+}
+.btn-sharp span{ position:relative; z-index:2; }
+.btn-sharp::after{
+  content:''; position:absolute; inset:0; background:var(--ink);
+  transform:translateY(101%); transition:transform .55s var(--ease-expo); z-index:1;
+}
+.btn-sharp:hover{ color:var(--paper); }
+.btn-sharp:hover::after{ transform:translateY(0); }
+.btn-fill{ background:var(--oxblood); border-color:var(--oxblood); color:var(--paper); }
+.btn-fill::after{ background:var(--ink); }
+.btn-fill:hover{ border-color:var(--ink); }
+
+/* ---------- Link underline draw ---------- */
+.ul-draw{ position:relative; display:inline-block; }
+.ul-draw::after{
+  content:''; position:absolute; left:0; bottom:-3px; height:1px; width:100%;
+  background:currentColor; transform:scaleX(0); transform-origin:right;
+  transition:transform .45s var(--ease-expo);
+}
+.ul-draw:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+/* ---------- Preloader ---------- */
+#preloader{
+  position:fixed; inset:0; z-index:100; background:var(--ink);
+  display:flex; align-items:center; justify-content:center; flex-direction:column; gap:2rem;
+  transition:clip-path 1.1s var(--ease-expo);
+  clip-path:inset(0 0 0 0);
+}
+#preloader.done{ clip-path:inset(0 0 100% 0); pointer-events:none; }
+.pre-monogram{
+  font-family:'Fraunces',serif; font-size:clamp(2.5rem,6vw,4.5rem); color:var(--paper);
+  letter-spacing:.04em; opacity:0; animation:preFade 1.2s var(--ease-expo) .2s forwards;
+}
+.pre-sub{ font-size:10px; letter-spacing:.4em; text-transform:uppercase; color:rgba(250,249,247,.5); opacity:0; animation:preFade 1s var(--ease-expo) .7s forwards; }
+.pre-line{ width:120px; height:1px; background:rgba(250,249,247,.2); position:relative; overflow:hidden; }
+.pre-line::after{ content:''; position:absolute; inset:0; background:var(--champagne); transform:scaleX(0); transform-origin:left; animation:preLine 1.4s var(--ease-expo) .4s forwards; }
+@keyframes preFade{ to{opacity:1;} }
+@keyframes preLine{ to{transform:scaleX(1);} }
+
+/* ---------- Line-mask reveal ---------- */
+.mask-line{ display:block; overflow:hidden; }
+.mask-line > em, .mask-line > span.line-inner{
+  display:block; font-style:inherit;
+  transform:translateY(110%);
+  transition:transform 1s var(--ease-expo);
+}
+.revealed .mask-line > em, .revealed .mask-line > span.line-inner{ transform:translateY(0); }
+
+/* ---------- Scroll reveals ---------- */
+.reveal{
+  opacity:0; transform:translateY(40px) scale(.98);
+  transition:opacity 1.1s var(--ease-expo), transform 1.1s var(--ease-expo);
+  transition-delay:var(--stagger, 0s);
+  will-change:opacity, transform;
+}
+.reveal.is-in{ opacity:1; transform:none; }
+/* Fallback: if JS/IO never fires, content must still be visible */
+html.no-js .reveal{ opacity:1; transform:none; }
+
+/* ---------- Ken Burns ---------- */
+@keyframes kenburns{ from{ transform:scale(1); } to{ transform:scale(1.08); } }
+.kenburns{ animation:kenburns 12s var(--ease-expo) alternate infinite; }
+
+/* ---------- Marquee ---------- */
+.marquee-track{ display:flex; width:max-content; animation:marquee 42s linear infinite; }
+@keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+/* ---------- Hover swap ---------- */
+.swap-wrap{ position:relative; overflow:hidden; }
+.swap-base, .swap-top{ width:100%; height:100%; object-fit:cover; display:block; }
+.swap-top{ position:absolute; inset:0; opacity:0; transform:scale(1.06); transition:opacity .8s var(--ease-expo), transform 1.2s var(--ease-expo); }
+.group:hover .swap-top, .swap-wrap:hover .swap-top{ opacity:1; transform:scale(1); }
+.img-zoom{ transition:transform 1.4s var(--ease-expo); }
+.group:hover .img-zoom{ transform:scale(1.05); }
+
+/* ---------- Nav ---------- */
+#nav{ transition:background-color .6s var(--ease-expo), box-shadow .6s var(--ease-expo), backdrop-filter .6s var(--ease-expo); }
+#nav.scrolled{ background:rgba(250,249,247,.82); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); box-shadow:0 1px 0 rgba(20,20,20,.08); }
+.nav-link{ font-size:11px; letter-spacing:.2em; text-transform:uppercase; }
+
+/* Mobile overlay */
+#mobile-menu{ clip-path:inset(0 0 100% 0); transition:clip-path .8s var(--ease-expo); pointer-events:none; }
+#mobile-menu.open{ clip-path:inset(0 0 0 0); pointer-events:auto; }
+.mm-link{ transform:translateY(60px); opacity:0; transition:transform .8s var(--ease-expo), opacity .8s var(--ease-expo); }
+#mobile-menu.open .mm-link{ transform:translateY(0); opacity:1; }
+
+/* Hamburger */
+.burger span{ display:block; width:26px; height:1px; background:var(--ink); transition:transform .5s var(--ease-expo), opacity .3s; }
+.burger.active span:nth-child(1){ transform:translateY(4.5px) rotate(45deg); }
+.burger.active span:nth-child(2){ transform:translateY(-4.5px) rotate(-45deg); }
+
+/* ---------- Filter chips ---------- */
+.chip{
+  padding:.55rem 1.35rem; border:1px solid rgba(20,20,20,.16); border-radius:9999px;
+  font-size:11px; letter-spacing:.16em; text-transform:uppercase; white-space:nowrap;
+  transition:all .4s var(--ease-expo); cursor:pointer; background:transparent; color:var(--ink);
+}
+.chip:hover{ border-color:var(--ink); }
+.chip.active{ background:var(--ink); color:var(--paper); border-color:var(--ink); }
+
+/* Product card show/hide (filter transitions) */
+.prod{ transition:opacity .55s var(--ease-expo), transform .55s var(--ease-expo); }
+.prod.is-out{ opacity:0; transform:translateY(14px) scale(.97); pointer-events:none; }
+.prod.hidden-item{ position:absolute !important; visibility:hidden; }
+
+/* ---------- Forms ---------- */
+.field{
+  width:100%; background:transparent; border:0; border-bottom:1px solid rgba(20,20,20,.25);
+  padding:1rem 0; font-size:15px; color:var(--ink); outline:none;
+  transition:border-color .4s var(--ease-expo);
+}
+.field:focus{ border-color:var(--oxblood); }
+.field::placeholder{ color:rgba(20,20,20,.35); }
+select.field{ appearance:none; -webkit-appearance:none; background-image:linear-gradient(45deg,transparent 50%,rgba(20,20,20,.5) 50%),linear-gradient(135deg,rgba(20,20,20,.5) 50%,transparent 50%); background-position:calc(100% - 12px) 55%, calc(100% - 7px) 55%; background-size:5px 5px; background-repeat:no-repeat; }
+select.field option{ background:var(--paper); }
+
+/* ---------- Scroll indicator ---------- */
+@keyframes dropfade{ 0%{transform:translateY(-100%);} 55%{transform:translateY(0);} 100%{transform:translateY(100%);} }
+.scroll-dot{ animation:dropfade 2.2s var(--ease-expo) infinite; }
+
+/* Parallax layer */
+.parallax{ will-change:transform; }
+
+/* Oversized footer wordmark */
+.wordmark-clip{ font-size:clamp(4rem, 15vw, 15rem); line-height:.85; letter-spacing:-.02em; user-select:none; }
+
+/* Sticky fit-guide columns handled via Tailwind sticky classes */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
+  .reveal{ opacity:1; transform:none; }
+  .mask-line > em, .mask-line > span.line-inner{ transform:none; }
+}
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ======================= PRELOADER ======================= -->
+<div id="preloader" aria-hidden="true">
+  <div class="pre-monogram font-display italic">DM<span class="not-italic text-[.5em] align-middle tracking-[.3em] ml-2">·</span></div>
+  <div class="pre-line"></div>
+  <div class="pre-sub">Design Machine — The Mod Cut Studio</div>
+</div>
+
+<!-- ======================= FIXED NAV ======================= -->
+<header id="nav" class="fixed top-0 left-0 right-0 z-50">
+  <nav aria-label="Primary" class="mx-auto max-w-[1600px] px-6 md:px-12 h-[72px] flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#top" class="flex items-baseline gap-3 group" aria-label="Design Machine — home">
+      <span class="font-display text-2xl tracking-tight leading-none">Design<span class="italic font-light">Machine</span></span>
+      <span class="label hidden lg:inline text-ink/40 group-hover:text-oxblood transition-colors duration-500">The Mod Cut Studio</span>
+    </a>
+    <!-- Center links -->
+    <div class="hidden md:flex items-center gap-12">
+      <a href="#collections" class="nav-link ul-draw">Collections</a>
+      <a href="#fit-guide" class="nav-link ul-draw">Fit Guide</a>
+      <a href="#atelier" class="nav-link ul-draw">Atelier</a>
+    </div>
+    <!-- CTA + burger -->
+    <div class="flex items-center gap-8">
+      <a href="#contact" class="nav-link hidden md:inline-flex items-center gap-2 text-oxblood ul-draw">
+        <span class="w-1.5 h-1.5 rounded-full bg-oxblood inline-block"></span>Book a Styling Session
+      </a>
+      <button id="burger" class="burger md:hidden flex flex-col gap-[8px] p-2 -mr-2" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="rule"></div>
+</header>
+
+<!-- Mobile full-screen overlay menu -->
+<div id="mobile-menu" class="fixed inset-0 z-40 bg-paper md:hidden flex flex-col justify-center px-8" role="dialog" aria-modal="true" aria-label="Site menu">
+  <div class="mt-10 flex flex-col gap-2">
+    <a href="#collections" class="mm-link font-display text-[13vw] leading-[1.05] tracking-tight md:hidden" style="transition-delay:.15s">Collections</a>
+    <a href="#fit-guide" class="mm-link font-display text-[13vw] leading-[1.05] tracking-tight md:hidden" style="transition-delay:.25s">Fit&nbsp;Guide</a>
+    <a href="#atelier" class="mm-link font-display text-[13vw] leading-[1.05] tracking-tight md:hidden" style="transition-delay:.35s">Atelier</a>
+    <a href="#contact" class="mm-link font-display text-[13vw] leading-[1.05] italic text-oxblood md:hidden" style="transition-delay:.45s">Book&nbsp;a&nbsp;Styling</a>
+  </div>
+  <div class="mm-link mt-12 label text-ink/40" style="transition-delay:.55s">Fateh Nagar &nbsp;·&nbsp; Tilak Nagar &nbsp;·&nbsp; New Delhi</div>
+</div>
+
+<main id="top">
+
+<!-- ======================= HERO ======================= -->
+<section class="relative min-h-[100svh] w-full overflow-hidden" aria-label="Introduction">
+  <!-- Background image with Ken Burns -->
+  <div class="absolute inset-0">
+    <img
+      src="assets/hero.jpg"
+      alt="Zivanya silk cord-set — draped kurta and straight trousers photographed at Design Machine, New Delhi"
+      class="kenburns absolute inset-0 h-full w-full object-cover"
+      fetchpriority="high" width="1600" height="2844" />
+    <div class="absolute inset-0 bg-gradient-to-r from-paper via-paper/70 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-paper/60 via-transparent to-transparent"></div>
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-[1600px] px-6 md:px-12 min-h-[100svh] flex flex-col justify-end pb-16 md:pb-20 pt-32">
+    <!-- Eyebrow -->
+    <p class="reveal label text-oxblood mb-8">New Delhi &nbsp;·&nbsp; Est. The Art of the Cut</p>
+
+    <!-- Line-mask headline (max 8 words) -->
+    <h1 id="hero-title" class="h-fluid-hero font-display max-w-[16ch]" aria-label="Where every seam is a decision.">
+      <span class="mask-line"><em class="line-inner not-italic" style="transition-delay:.10s">Where Every</em></span>
+      <span class="mask-line"><span class="line-inner" style="transition-delay:.20s">Seam Is A</span></span>
+      <span class="mask-line"><em class="line-inner italic font-light text-oxblood" style="transition-delay:.30s">Decision.</em></span>
+    </h1>
+
+    <!-- Sub + CTA row -->
+    <div class="mt-12 md:mt-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+      <p class="reveal body-fluid max-w-[42ch] text-ink/70" style="transition-delay:.5s">
+        Contemporary &amp; ethnic wear for the modern Indian woman — suits, co-ord sets and festive edits, cut to a standard we refuse to lower.
+      </p>
+      <div class="reveal" style="transition-delay:.65s">
+        <a href="#collections" class="btn-sharp btn-fill"><span>Explore The Collections</span><span aria-hidden="true" class="text-sm leading-none">&darr;</span></a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="reveal mt-14 flex items-center gap-4" style="transition-delay:.8s" aria-hidden="true">
+      <div class="w-[1px] h-14 bg-ink/15 relative overflow-hidden">
+        <span class="scroll-dot absolute inset-x-0 top-0 h-7 bg-oxblood block"></span>
+      </div>
+      <span class="label text-ink/40 rotate-0">Scroll</span>
+    </div>
+  </div>
+
+  <!-- Side meta -->
+  <div class="hidden lg:flex absolute right-12 top-1/2 -translate-y-1/2 z-10 items-center gap-4" aria-hidden="true">
+    <span class="label text-ink/40 [writing-mode:vertical-rl]">SS/26 — The Mod Cut Edit</span>
+    <span class="block w-[1px] h-24 bg-ink/10"></span>
+  </div>
+</section>
+
+<!-- ======================= MARQUEE ======================= -->
+<div class="border-y border-ink/10 bg-ink py-5 overflow-hidden" aria-hidden="true">
+  <div class="marquee-track">
+    <!-- duplicated twice for seamless loop -->
+    <div class="flex shrink-0 items-center">
+      <span class="label text-paper/70 mx-8">The Mod Cut</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">Bespoke Tailoring</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">New Delhi</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">Size-Inclusive Fits</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">Festive Atelier</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">Since Fateh Nagar</span><span class="text-champagne mx-2">&#9670;</span>
+    </div>
+    <div class="flex shrink-0 items-center">
+      <span class="label text-paper/70 mx-8">The Mod Cut</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">Bespoke Tailoring</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">New Delhi</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">Size-Inclusive Fits</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">Festive Atelier</span><span class="text-champagne mx-2">&#9670;</span>
+      <span class="label text-paper/70 mx-8">Since Fateh Nagar</span><span class="text-champagne mx-2">&#9670;</span>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= MANIFESTO ======================= -->
+<section class="relative py-28 md:py-44" aria-label="Brand manifesto">
+  <div class="mx-auto max-w-[1600px] px-6 md:px-12">
+    <p class="reveal label text-oxblood mb-12">(01) — The Philosophy</p>
+    <h2 class="font-display h-fluid-xl max-w-[22ch]" aria-label="Fashion forgets. A perfect cut is remembered.">
+      <span class="mask-line"><span class="line-inner">Fashion is forgotten.</span></span>
+      <span class="mask-line"><span class="line-inner" style="transition-delay:.1s">A perfect cut is</span></span>
+      <span class="mask-line"><em class="line-inner italic font-light" style="transition-delay:.2s"><span class="text-oxblood">remembered.</span></em></span>
+    </h2>
+    <div class="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12">
+      <p class="reveal body-fluid md:col-start-1 md:col-span-4 text-ink/70">
+        We do not chase trends. We chase the line where a shoulder seam meets confidence — the millimetre that decides whether a garment is worn, or <em class="font-display">lived in</em>.
+      </p>
+      <p class="reveal body-fluid md:col-start-6 md:col-span-3 text-ink/70" style="transition-delay:.08s">
+        Every Design Machine piece begins on the cutting table and ends with a hand-set finish. No shortcuts, no "close enough."
+      </p>
+      <p class="reveal body-fluid md:col-start-10 md:col-span-3 text-ink/70" style="transition-delay:.16s">
+        From boardroom suits to wedding-season silks — one standard applies. The mod cut, or nothing.
+      </p>
+    </div>
+    <!-- Signature stats strip -->
+    <div class="mt-20 rule"></div>
+    <dl class="grid grid-cols-2 md:grid-cols-4 divide-x divide-ink/10 border border-ink/10 border-x-0 border-b-0">
+      <div class="reveal py-8 pr-6 pl-0 md:pl-8">
+        <dt class="label text-ink/40 mb-2">In-house tailors</dt>
+        <dd class="font-display text-4xl md:text-5xl">14</dd>
+      </div>
+      <div class="reveal py-8 md:pl-8" style="transition-delay:.08s">
+        <dt class="label text-ink/40 mb-2">Sizes offered</dt>
+        <dd class="font-display text-4xl md:text-5xl">XS&ndash;4XL</dd>
+      </div>
+      <div class="reveal py-8 md:pl-8" style="transition-delay:.16s">
+        <dt class="label text-ink/40 mb-2">Alterations, first fitting</dt>
+        <dd class="font-display text-4xl md:text-5xl">Free</dd>
+      </div>
+      <div class="reveal py-8 md:pl-8" style="transition-delay:.24s">
+        <dt class="label text-ink/40 mb-2">Return disputes over fit</dt>
+        <dd class="font-display text-4xl md:text-5xl italic text-oxblood">&lt;1%</dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- ======================= THE COLLECTIONS ======================= -->
+<section id="collections" class="relative py-28 md:py-40 bg-linen/60 border-y border-ink/5" aria-label="Shop the collections">
+  <div class="mx-auto max-w-[1600px] px-6 md:px-12">
+    <!-- Header row -->
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16">
+      <div>
+        <p class="reveal label text-oxblood mb-6">(02) — The Collections</p>
+        <h2 class="font-display h-fluid-xl">
+          <span class="mask-line"><span class="line-inner">Curated, not</span></span>
+          <span class="mask-line"><em class="line-inner italic font-light" style="transition-delay:.1s">merely stocked.</em></span>
+        </h2>
+      </div>
+      <p class="reveal body-fluid max-w-[38ch] text-ink/60">
+        Browse the house edits the way you would in-store — by occasion, by fabric, by silhouette. Each piece is graded XS&ndash;4XL and photographed on real bodies, not mannequins.
+      </p>
+    </div>
+
+    <!-- ===== Filter UI (Net-a-Porter style) ===== -->
+    <div class="reveal hairline bg-paper/70 backdrop-blur-sm mb-14">
+      <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-ink/10">
+        <fieldset class="p-5 md:p-6">
+          <legend class="label text-ink/40 mb-4">Shop by Occasion</legend>
+          <div class="flex flex-wrap gap-2" data-filter-group="occasion">
+            <button class="chip active" data-value="all" aria-pressed="true">All</button>
+            <button class="chip" data-value="workwear" aria-pressed="false">Workwear</button>
+            <button class="chip" data-value="festive" aria-pressed="false">Festive</button>
+            <button class="chip" data-value="everyday" aria-pressed="false">Everyday</button>
+          </div>
+        </fieldset>
+        <fieldset class="p-5 md:p-6">
+          <legend class="label text-ink/40 mb-4">Shop by Fabric</legend>
+          <div class="flex flex-wrap gap-2" data-filter-group="fabric">
+            <button class="chip active" data-value="all" aria-pressed="true">All</button>
+            <button class="chip" data-value="silk" aria-pressed="false">Silk</button>
+            <button class="chip" data-value="linen" aria-pressed="false">Linen</button>
+            <button class="chip" data-value="crepe" aria-pressed="false">Crepe</button>
+          </div>
+        </fieldset>
+        <fieldset class="p-5 md:p-6">
+          <legend class="label text-ink/40 mb-4">Shop by Silhouette</legend>
+          <div class="flex flex-wrap gap-2" data-filter-group="silhouette">
+            <button class="chip active" data-value="all" aria-pressed="true">All</button>
+            <button class="chip" data-value="tailored" aria-pressed="false">Tailored</button>
+            <button class="chip" data-value="relaxed" aria-pressed="false">Relaxed</button>
+            <button class="chip" data-value="structured" aria-pressed="false">Structured</button>
+          </div>
+        </fieldset>
+      </div>
+      <div class="rule"></div>
+      <div class="px-6 py-3 flex items-center justify-between">
+        <p class="label text-ink/40" id="filter-count" aria-live="polite">Showing 9 pieces</p>
+        <button id="filter-reset" class="label text-oxblood ul-draw hover:text-ink transition-colors duration-500">Reset filters &times;</button>
+      </div>
+    </div>
+
+    <!-- ===== Category strip (asymmetric editorial trio) ===== -->
+    <div class="grid grid-cols-12 gap-6 md:gap-8 mb-20">
+      <a href="#collection-grid" class="group col-span-12 md:col-span-7 relative overflow-hidden block reveal">
+        <div class="swap-wrap aspect-[16/10] md:aspect-[4/3]">
+          <img class="swap-base" loading="lazy" width="1200" height="900" alt="Aavrielle ziraff tissue suit with scalloped kurta and churidar, photographed at Design Machine"
+               src="assets/festive.jpg" />
+          <img class="swap-top" loading="lazy" width="1200" height="900" alt="Varnika banarasi unstitched suit — woven border detail"
+               src="assets/detail.jpg" />
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8 flex items-end justify-between bg-gradient-to-t from-ink/70 to-transparent">
+          <h3 class="font-display text-3xl md:text-5xl leading-none" style="color:#FAF9F7">The Suit<span class="italic font-light">&nbsp;Edit</span></h3>
+          <span class="label hidden md:inline" style="color:rgba(250,249,247,.8)">Discover &rarr;</span>
+        </div>
+      </a>
+      <div class="col-span-12 md:col-span-5 flex flex-col gap-6 md:gap-8">
+        <a href="#collection-grid" class="group relative overflow-hidden block reveal" style="transition-delay:.08s">
+          <div class="swap-wrap aspect-[16/9] md:aspect-[2/1]">
+            <img class="swap-base" loading="lazy" width="1200" height="675" alt="Orvielle pure crepe co-ord set in soft daylight"
+                 src="assets/cordsets.jpg" />
+            <img class="swap-top" loading="lazy" width="1200" height="675" alt="Veylora pure crepe suit — relaxed two-piece drape"
+                 src="assets/suits.jpg" />
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between bg-gradient-to-t from-ink/70 to-transparent">
+            <h3 class="font-display text-3xl leading-none" style="color:#FAF9F7">Co-Ord Sets</h3>
+            <span class="label" style="color:rgba(250,249,247,.8)">Discover &rarr;</span>
+          </div>
+        </a>
+        <a href="#collection-grid" class="group relative overflow-hidden block reveal" style="transition-delay:.16s">
+          <div class="swap-wrap aspect-[16/9] md:aspect-[2/1]">
+            <img class="swap-base" loading="lazy" width="1200" height="675" alt="Zarevyn velvet unstitched suit — festive edit from the atelier"
+                 src="assets/manifesto.jpg" />
+            <img class="swap-top" loading="lazy" width="1200" height="675" alt="Zivanya silk cord-set — shimmer tissue detail"
+                 src="assets/p-zivanya.jpg" />
+          </div>
+          <div class="absolute bottom-0 left-0 right-0 p-5 flex items-end justify-between bg-gradient-to-t from-ink/70 to-transparent">
+            <h3 class="font-display text-3xl leading-none" style="color:#FAF9F7">Festive&nbsp;<span class="italic font-light">Wear</span></h3>
+            <span class="label" style="color:rgba(250,249,247,.8)">Discover &rarr;</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- ===== Product grid (#collection-grid) ===== -->
+    <div id="collection-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+
+            <!-- Item 1 -->
+      <article class="prod group reveal" data-occasion="workwear" data-fabric="crepe" data-silhouette="tailored" style="transition-delay:.0s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Elarisse pure crepe suit in soft grey — shirt-style kurta with straight trousers"
+               src="assets/p-elarisse.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Elarisse pure crepe suit — fabric and finish detail"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Suit Set · Pure Crepe</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">The Elarisse Crepe Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;4,200</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Shirt-weight crepe, matte finish</p>
+      </article>
+      <!-- Item 2 -->
+      <article class="prod group reveal sm:mt-16" data-occasion="festive" data-fabric="silk" data-silhouette="relaxed" style="transition-delay:.08s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Zivanya silk cord-set in jewel tones with draped kurta and palazzo"
+               src="assets/p-zivanya.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Zivanya silk cord-set — shimmer silk detail"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Co-Ord Set · Pure Silk</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Zivanya Silk Cord-Set</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;3,000</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Unstitched · Gajji silk with natural sheen</p>
+      </article>
+      <!-- Item 3 -->
+      <article class="prod group reveal" data-occasion="everyday" data-fabric="cotton" data-silhouette="relaxed" style="transition-delay:.16s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Myraya cotton suit in pastel print — relaxed everyday two-piece"
+               src="assets/p-myraya.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Myraya cotton suit — breathable cotton weave"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Cotton Suit · Pure Cotton</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">The Myraya Cotton Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;1,400</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · All-day breathability</p>
+      </article>
+      <!-- Item 4 -->
+      <article class="prod group reveal" data-occasion="festive" data-fabric="tissue" data-silhouette="structured" style="transition-delay:.0s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Aavrielle ziraff tissue suit with scalloped kurta and churidar"
+               src="assets/p-aavrielle.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Aavrielle ziraff tissue suit — shimmering tissue drape"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Festive Suit · Ziraff Tissue</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Aavrielle Ziraff Tissue Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;6,500</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Unstitched · Light-touch shimmer weave</p>
+      </article>
+      <!-- Item 5 -->
+      <article class="prod group reveal sm:mt-16" data-occasion="workwear" data-fabric="crepe" data-silhouette="tailored" style="transition-delay:.08s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Orvielle pure crepe co-ord set — belted kurta with wide trousers"
+               src="assets/p-orvielle.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Orvielle pure crepe cord-set — seam and drape detail"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Co-Ord Set · Pure Crepe</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Orvielle Crepe Co-Ord</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;4,000</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Wrinkle-resistant travel weave</p>
+      </article>
+      <!-- Item 6 -->
+      <article class="prod group reveal" data-occasion="everyday" data-fabric="crepe" data-silhouette="relaxed" style="transition-delay:.16s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Nayelle pure crepe suit in muted floral print"
+               src="assets/p-nayelle.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Nayelle pure crepe suit — curved hem detail"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Daily Suit · Pure Crepe</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">The Nayelle Crepe Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;2,499</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Signature mod-cut ease</p>
+      </article>
+      <!-- Item 7 -->
+      <article class="prod group reveal" data-occasion="festive" data-fabric="banarasi" data-silhouette="structured" style="transition-delay:.0s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Varnika banarasi unstitched suit with woven brocade border"
+               src="assets/p-varnika.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Varnika banarasi unstitched suit — banarasi weave close-up"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Unstitched Suit · Banarasi</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Varnika Banarasi Edit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;4,000</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Unstitched · Handloom-inspired brocade border</p>
+      </article>
+      <!-- Item 8 -->
+      <article class="prod group reveal sm:mt-16" data-occasion="everyday" data-fabric="crepe" data-silhouette="tailored" style="transition-delay:.08s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Vionelle pure crepe cord-set in soft neutral tones"
+               src="assets/p-veyloracord.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Vionelle pure crepe cord-set — piping and placket detail"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Co-Ord Set · Pure Crepe</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Vionelle Crepe Cord-Set</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;4,000</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Sizes XS&ndash;4XL · Sharp line, soft hand</p>
+      </article>
+      <!-- Item 9 -->
+      <article class="prod group reveal" data-occasion="festive" data-fabric="velvet" data-silhouette="structured" style="transition-delay:.16s">
+        <div class="swap-wrap aspect-[3/4] mb-5 bg-linen">
+          <img class="swap-base" loading="lazy" width="900" height="1200" alt="Zarevyn velvet unstitched suit in deep tone for winter festive wear"
+               src="assets/p-zarevyn.jpg" />
+          <img class="swap-top" loading="lazy" width="900" height="1200" alt="Zarevyn velvet unstitched suit — pile and light of the velvet"
+               src="assets/detail.jpg" />
+        </div>
+        <p class="label text-ink/40 mb-1.5">Winter Festive · Velvet</p>
+        <div class="flex justify-between items-baseline gap-4">
+          <h3 class="font-display text-xl md:text-2xl ul-draw inline-block">Zarevyn Velvet Suit</h3>
+          <span class="text-sm text-ink/70 whitespace-nowrap">&#8377;7,000</span>
+        </div>
+        <p class="mt-2 text-sm text-ink/50">Unstitched · Short-pile seasonal velvet</p>
+      </article>
+
+    </div>
+
+    <!-- Empty state -->
+    <div id="filter-empty" class="reveal hidden py-24 text-center">
+      <p class="font-display italic text-3xl md:text-4xl text-ink/60 mb-4">Nothing matches that combination — yet.</p>
+      <p class="body-fluid text-ink/50 max-w-[46ch] mx-auto mb-8">Our atelier cuts made-to-order pieces weekly. Loosen a filter, or tell us exactly what you're looking for at a styling session.</p>
+      <button id="filter-empty-reset" class="btn-sharp"><span>View Everything</span></button>
+    </div>
+
+    <div class="mt-20 flex justify-center reveal">
+      <a href="#contact" class="btn-sharp"><span>Request The Full Lookbook</span><span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= THE MOD CUT FIT GUIDE ======================= -->
+<section id="fit-guide" class="relative py-28 md:py-40 overflow-hidden" aria-label="The Mod Cut Fit Guide">
+  <!-- Parallax backdrop -->
+  <div class="absolute inset-0 -z-10 opacity-[0.05]" aria-hidden="true">
+    <img class="parallax absolute inset-x-0 -top-[15%] h-[130%] w-full object-cover" loading="lazy" width="2000" height="1333" alt=""
+         src="assets/px-fit.jpg" />
+  </div>
+
+  <div class="mx-auto max-w-[1600px] px-6 md:px-12">
+    <p class="reveal label text-oxblood mb-6">(03) — The Mod Cut Fit Guide</p>
+    <h2 class="font-display h-fluid-xl max-w-[20ch] mb-20">
+      <span class="mask-line"><span class="line-inner">A garment should</span></span>
+      <span class="mask-line"><span class="line-inner" style="transition-delay:.1s">follow the body —</span></span>
+      <span class="mask-line"><em class="line-inner italic font-light" style="transition-delay:.2s">never fight it.</em></span>
+    </h2>
+
+    <!-- Sticky two-column -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+      <!-- Sticky left -->
+      <div class="lg:col-span-5">
+        <div class="lg:sticky lg:top-28">
+          <div class="swap-wrap group aspect-[4/5] mb-8">
+            <img class="swap-base" loading="lazy" width="1000" height="1250" alt="Zivanya silk cord-set draped on the fit form at Design Machine"
+                 src="assets/hero.jpg" />
+            <img class="swap-top" loading="lazy" width="1000" height="1250" alt="Aavrielle ziraff tissue suit — scalloped hem after fitting"
+                 src="assets/festive.jpg" />
+          </div>
+          <blockquote class="font-display italic text-2xl md:text-[1.7rem] leading-snug text-ink/80 border-l border-oxblood pl-6">
+            &ldquo;We don't fit women to our sizes.<br/>We cut our sizes to women.&rdquo;
+          </blockquote>
+          <p class="label text-ink/40 mt-4">— Head Cutter, Design Machine</p>
+        </div>
+      </div>
+
+      <!-- Scrolling right : measurement editorial -->
+      <div class="lg:col-span-7 lg:pt-4">
+        <p class="reveal body-fluid text-ink/70 max-w-[58ch] mb-14">
+          The "mod cut" is our house philosophy: a modern, honest silhouette drafted from real measurements — not vanity sizing. Take fifteen minutes with a soft measuring tape, then compare against the three dimensions below. When in doubt, message us your numbers and a stylist will confirm your size before you check out.
+        </p>
+
+        <!-- Step 01 -->
+        <div class="reveal grid grid-cols-12 gap-6 items-start py-10 border-t border-ink/10">
+          <span class="col-span-2 lg:col-span-1 font-display italic text-4xl md:text-5xl text-champagne/70">01</span>
+          <div class="col-span-10 lg:col-span-4">
+            <h3 class="font-display text-2xl md:text-3xl mb-2">The Bust</h3>
+            <p class="text-sm leading-relaxed text-ink/60">Measure around the fullest point, tape parallel to the floor, arms relaxed down. Do not pull tight — the mod cut needs one finger of ease.</p>
+          </div>
+          <div class="lg:col-span-7 lg:pl-8">
+            <table class="w-full text-sm" role="table" aria-label="Bust measurements by size">
+              <thead><tr class="label text-ink/40 border-b border-ink/10 text-left">
+                <th scope="col" class="py-2 font-medium">Size</th><th scope="col" class="py-2 font-medium">XS</th><th scope="col" class="py-2 font-medium">S</th><th scope="col" class="py-2 font-medium">M</th><th scope="col" class="py-2 font-medium">L</th><th scope="col" class="py-2 font-medium">XL</th><th scope="col" class="py-2 font-medium">2XL</th><th scope="col" class="py-2 font-medium">3XL</th><th scope="col" class="py-2 font-medium">4XL</th>
+              </tr></thead>
+              <tbody class="text-ink/70">
+                <tr class="border-b border-ink/5"><td class="py-2.5 label text-ink/40">Inches</td><td>31–32</td><td>33–34</td><td>35–36</td><td>37–38.5</td><td>39.5–41</td><td>42–44</td><td>45–47</td><td>48–50</td></tr>
+                <tr><td class="py-2.5 label text-ink/40">Centimetres</td><td>79–81</td><td>84–86</td><td>89–91</td><td>94–98</td><td>100–104</td><td>107–112</td><td>114–119</td><td>122–127</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Step 02 -->
+        <div class="reveal grid grid-cols-12 gap-6 items-start py-10 border-t border-ink/10" style="transition-delay:.08s">
+          <span class="col-span-2 lg:col-span-1 font-display italic text-4xl md:text-5xl text-champagne/70">02</span>
+          <div class="col-span-10 lg:col-span-4">
+            <h3 class="font-display text-2xl md:text-3xl mb-2">The Waist</h3>
+            <p class="text-sm leading-relaxed text-ink/60">Find your natural waist — the narrowest point above the navel. Bend sideways; where you crease is where we measure.</p>
+          </div>
+          <div class="lg:col-span-7 lg:pl-8">
+            <table class="w-full text-sm" role="table" aria-label="Waist measurements by size">
+              <thead><tr class="label text-ink/40 border-b border-ink/10 text-left">
+                <th scope="col" class="py-2 font-medium">Size</th><th scope="col" class="py-2 font-medium">XS</th><th scope="col" class="py-2 font-medium">S</th><th scope="col" class="py-2 font-medium">M</th><th scope="col" class="py-2 font-medium">L</th><th scope="col" class="py-2 font-medium">XL</th><th scope="col" class="py-2 font-medium">2XL</th><th scope="col" class="py-2 font-medium">3XL</th><th scope="col" class="py-2 font-medium">4XL</th>
+              </tr></thead>
+              <tbody class="text-ink/70">
+                <tr class="border-b border-ink/5"><td class="py-2.5 label text-ink/40">Inches</td><td>24–25</td><td>26–27</td><td>28–29.5</td><td>31–32.5</td><td>34–35.5</td><td>37–39</td><td>40.5–42.5</td><td>44–46</td></tr>
+                <tr><td class="py-2.5 label text-ink/40">Centimetres</td><td>61–64</td><td>66–69</td><td>71–75</td><td>79–83</td><td>86–90</td><td>94–99</td><td>103–108</td><td>112–117</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Step 03 -->
+        <div class="reveal grid grid-cols-12 gap-6 items-start py-10 border-t border-ink/10" style="transition-delay:.16s">
+          <span class="col-span-2 lg:col-span-1 font-display italic text-4xl md:text-5xl text-champagne/70">03</span>
+          <div class="col-span-10 lg:col-span-4">
+            <h3 class="font-display text-2xl md:text-3xl mb-2">The Hip</h3>
+            <p class="text-sm leading-relaxed text-ink/60">Measure around the widest point, roughly eight inches below the natural waist. Keep feet together for an honest number.</p>
+          </div>
+          <div class="lg:col-span-7 lg:pl-8">
+            <table class="w-full text-sm" role="table" aria-label="Hip measurements by size">
+              <thead><tr class="label text-ink/40 border-b border-ink/10 text-left">
+                <th scope="col" class="py-2 font-medium">Size</th><th scope="col" class="py-2 font-medium">XS</th><th scope="col" class="py-2 font-medium">S</th><th scope="col" class="py-2 font-medium">M</th><th scope="col" class="py-2 font-medium">L</th><th scope="col" class="py-2 font-medium">XL</th><th scope="col" class="py-2 font-medium">2XL</th><th scope="col" class="py-2 font-medium">3XL</th><th scope="col" class="py-2 font-medium">4XL</th>
+              </tr></thead>
+              <tbody class="text-ink/70">
+                <tr class="border-b border-ink/5"><td class="py-2.5 label text-ink/40">Inches</td><td>33–34</td><td>35–36</td><td>37–38.5</td><td>40–41.5</td><td>43–44.5</td><td>46–48</td><td>49.5–51.5</td><td>53–55</td></tr>
+                <tr><td class="py-2.5 label text-ink/40">Centimetres</td><td>84–86</td><td>89–91</td><td>94–98</td><td>102–105</td><td>109–113</td><td>117–122</td><td>126–131</td><td>135–140</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Between sizes guidance -->
+        <div class="reveal mt-14 p-8 md:p-10 bg-paper hairline">
+          <div class="grid md:grid-cols-12 gap-6 items-center">
+            <h3 class="font-display text-2xl md:text-3xl md:col-span-5">Between two sizes?</h3>
+            <p class="body-fluid text-ink/60 md:col-span-7">Choose the size that fits your <em class="font-display">largest</em> measurement — our first alteration is always free, in-store or by mail. For structured blazers, size up; for drape, stay true.</p>
+          </div>
+        </div>
+        <div class="reveal mt-8 flex flex-wrap gap-x-10 gap-y-3 pb-2">
+          <span class="text-sm text-ink/50 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-champagne"></span>Photographed on sizes 12 &amp; 26 bodies</span>
+          <span class="text-sm text-ink/50 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-champagne"></span>Free video fitting consult on every order</span>
+          <span class="text-sm text-ink/50 flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-champagne"></span>30-day exchange, tags intact</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= PARALLAX QUOTE BAND ======================= -->
+<section class="relative py-32 md:py-48 overflow-hidden" aria-label="House statement">
+  <div class="absolute inset-0" aria-hidden="true">
+    <img class="parallax absolute inset-x-0 -top-[20%] h-[140%] w-full object-cover scale-110" loading="lazy" width="2000" height="1200" alt=""
+         src="assets/px-festive.jpg" />
+    <div class="absolute inset-0 bg-ink/60"></div>
+  </div>
+  <div class="relative z-10 mx-auto max-w-[1100px] px-6 text-center">
+    <p class="reveal font-display italic text-paper h-fluid-lg leading-tight">
+      &ldquo;Elegance is when the inside is as beautiful as the outside — so we finish every seam as if someone will always look.&rdquo;
+    </p>
+    <p class="reveal label text-champagne mt-8">The Design Machine Promise</p>
+  </div>
+</section>
+
+<!-- ======================= THE ATELIER ======================= -->
+<section id="atelier" class="relative py-28 md:py-40" aria-label="The Atelier — our stores">
+  <div class="mx-auto max-w-[1600px] px-6 md:px-12">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-20">
+      <div>
+        <p class="reveal label text-oxblood mb-6">(04) — The Atelier</p>
+        <h2 class="font-display h-fluid-xl">
+          <span class="mask-line"><span class="line-inner">Two addresses.</span></span>
+          <span class="mask-line"><em class="line-inner italic font-light" style="transition-delay:.1s">One standard.</em></span>
+        </h2>
+      </div>
+      <p class="reveal body-fluid max-w-[40ch] text-ink/60">
+        Our rooms were designed as studios, not shops — cutting tables behind glass, true-colour daylight, and a private fitting salon reserved for appointments.
+      </p>
+    </div>
+
+    <!-- Store 1 : Fateh Nagar -->
+    <article class="reveal grid grid-cols-12 gap-6 md:gap-10 items-center mb-24 md:mb-32">
+      <div class="col-span-12 md:col-span-7 order-1">
+        <div class="swap-wrap group aspect-[16/10]">
+          <img class="swap-base" loading="lazy" width="1600" height="1000" alt="The Nayelle pure crepe suit — worn at the Design Machine atelier, Fateh Nagar"
+               src="assets/atelier-1.jpg" />
+          <img class="swap-top" loading="lazy" width="1600" height="1000" alt="Elarisse pure crepe suit — cut-line detail from the atelier"
+               src="assets/atelier-2.jpg" />
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-5 md:pl-4 order-2">
+        <p class="label text-champagne mb-4">Flagship · The Original</p>
+        <h3 class="font-display h-fluid-md mb-5">Fateh Nagar</h3>
+        <p class="body-fluid text-ink/60 mb-8">Where the house began. The cutting floor is visible from the entrance — watch your garment drafted, pinned and pressed. Walk-ins welcome; VIP styling salons by appointment.</p>
+        <dl class="text-sm space-y-3 mb-8">
+          <div class="flex gap-4 border-b border-ink/5 pb-3"><dt class="label text-ink/40 w-24 shrink-0">Address</dt><dd class="text-ink/70">Main Market, Fateh Nagar,<br/>New Delhi 110018</dd></div>
+          <div class="flex gap-4 border-b border-ink/5 pb-3"><dt class="label text-ink/40 w-24 shrink-0">Hours</dt><dd class="text-ink/70">Mon–Sat, 10:30 – 20:30<br/>Sunday by appointment</dd></div>
+          <div class="flex gap-4"><dt class="label text-ink/40 w-24 shrink-0">Services</dt><dd class="text-ink/70">Personal Styling · Bespoke Alterations · Curated Collections</dd></div>
+        </dl>
+        <a href="#contact" class="btn-sharp"><span>Book a VIP Session</span><span aria-hidden="true">&rarr;</span></a>
+      </div>
+    </article>
+
+    <!-- Store 2 : Tilak Nagar (reversed asymmetry) -->
+    <article class="reveal grid grid-cols-12 gap-6 md:gap-10 items-center">
+      <div class="col-span-12 md:col-span-5 md:col-start-1 md:order-1 order-2">
+        <p class="label text-champagne mb-4">Second Studio · The Annex</p>
+        <h3 class="font-display h-fluid-md mb-5">Tilak Nagar</h3>
+        <p class="body-fluid text-ink/60 mb-8">A calmer room for festive fittings — full-length mirrors with daylight bulbs, a fabric library of silks, linens and crepes, and tailors dedicated to wedding-season orders.</p>
+        <dl class="text-sm space-y-3 mb-8">
+          <div class="flex gap-4 border-b border-ink/5 pb-3"><dt class="label text-ink/40 w-24 shrink-0">Address</dt><dd class="text-ink/70">Block A, Main Bazaar,<br/>Tilak Nagar, New Delhi 110018</dd></div>
+          <div class="flex gap-4 border-b border-ink/5 pb-3"><dt class="label text-ink/40 w-24 shrink-0">Hours</dt><dd class="text-ink/70">Mon–Sat, 11:00 – 20:00</dd></div>
+          <div class="flex gap-4"><dt class="label text-ink/40 w-24 shrink-0">Services</dt><dd class="text-ink/70">Festive Consultations · Made-to-Measure · Group Styling</dd></div>
+        </dl>
+        <a href="#contact" class="btn-sharp"><span>Reserve the Fitting Salon</span><span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="col-span-12 md:col-span-6 md:col-start-7 md:order-2 order-1">
+        <div class="swap-wrap group aspect-[16/10] md:aspect-[5/4]">
+          <img class="swap-base" loading="lazy" width="1600" height="1280" alt="Veylora pure crepe suit — studio edit for the Tilak Nagar annex"
+               src="assets/suits.jpg" />
+          <img class="swap-top" loading="lazy" width="1600" height="1280" alt="Orvielle pure crepe cord-set — hand-finished seam detail"
+               src="assets/cordsets.jpg" />
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ======================= PROOF / TESTIMONIALS ======================= -->
+<section class="py-28 md:py-40 bg-linen/60 border-y border-ink/5" aria-label="Client testimonials">
+  <div class="mx-auto max-w-[1600px] px-6 md:px-12">
+    <p class="reveal label text-oxblood mb-16 md:text-center">(05) — In Their Words</p>
+    <div class="grid grid-cols-12 gap-12 md:gap-8">
+      <figure class="reveal col-span-12 md:col-span-7 lg:col-span-5">
+        <blockquote class="font-display text-2xl md:text-[1.9rem] leading-snug mb-6">&ldquo;I have bought suits for twenty years and never once needed alterations — until I stopped needing them anywhere else. The fit is <em class="italic text-oxblood">quietly perfect</em>.&rdquo;</blockquote>
+        <figcaption class="flex items-center gap-4">
+          <img class="w-12 h-12 rounded-full object-cover" loading="lazy" width="96" height="96" alt="Portrait of Ananya Malhotra" src="assets/avatar-1.jpg" />
+          <div><p class="text-sm font-medium">Ananya Malhotra</p><p class="label text-ink/40 mt-1">Partner, Law Firm · Vasant Vihar</p></div>
+        </figcaption>
+      </figure>
+      <figure class="reveal col-span-12 md:col-span-5 md:col-start-8 lg:col-span-4 lg:col-start-7 lg:mt-16" style="transition-delay:.08s">
+        <blockquote class="font-display text-2xl md:text-[1.7rem] leading-snug mb-6">&ldquo;Ordered online at size 3XL expecting disappointment. The chart was honest to the millimetre. It arrived fitting like it was cut for me — because it was.&rdquo;</blockquote>
+        <figcaption class="flex items-center gap-4">
+          <img class="w-12 h-12 rounded-full object-cover" loading="lazy" width="96" height="96" alt="Portrait of Rehan Kaur" src="assets/avatar-2.jpg" />
+          <div><p class="text-sm font-medium">Rehan Kaur</p><p class="label text-ink/40 mt-1">Architect · Chandigarh</p></div>
+        </figcaption>
+      </figure>
+      <figure class="reveal col-span-12 lg:col-span-6 lg:col-start-6 mt-4" style="transition-delay:.16s">
+        <blockquote class="font-display text-2xl md:text-[1.9rem] leading-snug mb-6">&ldquo;My daughter's entire sangeet trousseau came from the Tilak Nagar salon. Two hours of styling, chai, zero pressure. We left with four pieces and a plan for the whole wedding season.&rdquo;</blockquote>
+        <figcaption class="flex items-center gap-4">
+          <img class="w-12 h-12 rounded-full object-cover" loading="lazy" width="96" height="96" alt="Portrait of Sunita Rao" src="assets/avatar-3.jpg" />
+          <div><p class="text-sm font-medium">Sunita Rao</p><p class="label text-ink/40 mt-1">Regular since 2016 · Dwarka</p></div>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CONTACT ======================= -->
+<section id="contact" class="relative py-28 md:py-40" aria-label="Book an atelier appointment">
+  <div class="mx-auto max-w-[1600px] px-6 md:px-12 grid grid-cols-12 gap-14 lg:gap-10">
+    <!-- Left : invitation -->
+    <div class="col-span-12 lg:col-span-5">
+      <p class="reveal label text-oxblood mb-6">(06) — Visit Us</p>
+      <h2 class="font-display h-fluid-lg mb-8">
+        <span class="mask-line"><span class="line-inner">An hour in the</span></span>
+        <span class="mask-line"><em class="line-inner italic font-light" style="transition-delay:.1s">atelier says more</em></span>
+        <span class="mask-line"><span class="line-inner" style="transition-delay:.2s">than a hundred scrolls.</span></span>
+      </h2>
+      <p class="reveal body-fluid text-ink/60 max-w-[44ch] mb-12">
+        Tell us when suits you. A stylist will hold the rails relevant to your occasion, reserve the fitting salon, and note your measurements before you arrive.
+      </p>
+      <div class="reveal space-y-8 text-sm">
+        <div class="flex gap-5 items-start">
+          <span class="label text-ink/40 w-24 shrink-0 pt-1">Call / WhatsApp</span>
+          <a href="tel:+919811000000" class="ul-draw text-base">+91 98110 00000</a>
+        </div>
+        <div class="flex gap-5 items-start">
+          <span class="label text-ink/40 w-24 shrink-0 pt-1">Write to us</span>
+          <a href="mailto:atelier@designmachine.in" class="ul-draw text-base">atelier@designmachine.in</a>
+        </div>
+        <div class="flex gap-5 items-start">
+          <span class="label text-ink/40 w-24 shrink-0 pt-1">Ateliers</span>
+          <p class="text-ink/70 leading-relaxed">Main Market, Fateh Nagar &amp;<br/>Block A, Main Bazaar, Tilak Nagar<br/>New Delhi 110018</p>
+        </div>
+        <div class="flex gap-5 items-start">
+          <span class="label text-ink/40 w-24 shrink-0 pt-1">Follow</span>
+          <p><a href="https://www.instagram.com/designmachine.delhi" target="_blank" rel="noopener" class="ul-draw text-ink/70 hover:text-oxblood transition-colors duration-500">Instagram</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="https://www.facebook.com/designmachine.delhi" target="_blank" rel="noopener" class="ul-draw text-ink/70 hover:text-oxblood transition-colors duration-500">Facebook</a></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right : form -->
+    <div class="col-span-12 lg:col-span-6 lg:col-start-7">
+      <form id="booking-form" class="hairline bg-paper p-8 md:p-12" novalidate aria-label="Book an atelier appointment">
+        <p class="hidden" aria-hidden="true"><label for="f-bot">Do not fill this field<input id="f-bot" type="text" name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <h3 class="font-display text-2xl md:text-3xl mb-2">Book an Atelier Appointment</h3>
+        <p class="text-sm text-ink/50 mb-10">Complimentary · 60–90 minutes · Chai included</p>
+        <div class="grid md:grid-cols-2 gap-x-8 gap-y-6">
+          <div class="md:col-span-2">
+            <label for="f-name" class="label text-ink/40 block mb-1">Full Name</label>
+            <input class="field" type="text" id="f-name" name="name" placeholder="Priya Sharma" required autocomplete="name" />
+          </div>
+          <div>
+            <label for="f-phone" class="label text-ink/40 block mb-1">Phone</label>
+            <input class="field" type="tel" id="f-phone" name="phone" placeholder="+91 ..." required autocomplete="tel" />
+          </div>
+          <div>
+            <label for="f-email" class="label text-ink/40 block mb-1">Email</label>
+            <input class="field" type="email" id="f-email" name="email" placeholder="you@email.com" required autocomplete="email" />
+          </div>
+          <div>
+            <label for="f-store" class="label text-ink/40 block mb-1">Preferred Atelier</label>
+            <select class="field" id="f-store" name="store" required>
+              <option value="" selected disabled>Select location</option>
+              <option>Fateh Nagar — Flagship</option>
+              <option>Tilak Nagar — The Annex</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-date" class="label text-ink/40 block mb-1">Preferred Date</label>
+            <input class="field" type="date" id="f-date" name="date" required />
+          </div>
+          <div>
+            <label for="f-purpose" class="label text-ink/40 block mb-1">Occasion</label>
+            <select class="field" id="f-purpose" name="purpose">
+              <option>Wardrobe refresh</option>
+              <option>Workwear suits</option>
+              <option>Festive / wedding trousseau</option>
+              <option>Bespoke alterations</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-time" class="label text-ink/40 block mb-1">Time</label>
+            <select class="field" id="f-time" name="time">
+              <option>11:00 AM</option><option>1:00 PM</option><option>3:30 PM</option><option>6:00 PM</option>
+            </select>
+          </div>
+          <div class="md:col-span-2">
+            <label for="f-notes" class="label text-ink/40 block mb-1">Anything we should prepare?</label>
+            <textarea class="field resize-none" id="f-notes" name="notes" rows="3" placeholder="e.g. charcoal suit for court, plus two festive co-ords..."></textarea>
+          </div>
+        </div>
+        <div class="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <p class="text-xs text-ink/40 max-w-[30ch]">We reply within one working day. Your details are never shared.</p>
+          <button type="submit" class="btn-sharp btn-fill"><span>Request Appointment</span><span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <p id="form-success" class="hidden mt-8 font-display italic text-xl text-oxblood" role="status">Thank you — your request is received. A stylist will call you shortly to confirm.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="bg-ink text-paper pt-24 overflow-hidden" aria-label="Site footer">
+  <div class="mx-auto max-w-[1600px] px-6 md:px-12">
+    <div class="grid grid-cols-12 gap-10 pb-20">
+      <div class="col-span-12 lg:col-span-5">
+        <p class="label text-champagne mb-6">Design Machine — The Mod Cut Studio</p>
+        <p class="font-display italic text-2xl md:text-3xl leading-snug max-w-[26ch]" style="color:rgba(250,249,247,.85)">Cut with obsession.<br/>Finished by hand.<br/>Worn for years.</p>
+      </div>
+      <nav class="col-span-6 sm:col-span-4 lg:col-span-2 lg:col-start-7" aria-label="Shop">
+        <p class="label mb-6" style="color:rgba(250,249,247,.4)">Shop</p>
+        <ul class="space-y-3 text-sm" style="color:rgba(250,249,247,.75)">
+          <li><a href="#collections" class="ul-draw hover:text-champagne transition-colors duration-500">Tailored Suits</a></li>
+          <li><a href="#collections" class="ul-draw hover:text-champagne transition-colors duration-500">Co-Ord Sets</a></li>
+          <li><a href="#collections" class="ul-draw hover:text-champagne transition-colors duration-500">Festive Wear</a></li>
+          <li><a href="#collections" class="ul-draw hover:text-champagne transition-colors duration-500">The Lookbook</a></li>
+        </ul>
+      </nav>
+      <nav class="col-span-6 sm:col-span-4 lg:col-span-2" aria-label="House">
+        <p class="label mb-6" style="color:rgba(250,249,247,.4)">The House</p>
+        <ul class="space-y-3 text-sm" style="color:rgba(250,249,247,.75)">
+          <li><a href="#fit-guide" class="ul-draw hover:text-champagne transition-colors duration-500">Mod Cut Fit Guide</a></li>
+          <li><a href="#atelier" class="ul-draw hover:text-champagne transition-colors duration-500">Our Ateliers</a></li>
+          <li><a href="#contact" class="ul-draw hover:text-champagne transition-colors duration-500">VIP Styling</a></li>
+          <li><a href="#contact" class="ul-draw hover:text-champagne transition-colors duration-500">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="col-span-12 sm:col-span-4 lg:col-span-3">
+        <p class="label mb-6" style="color:rgba(250,249,247,.4)">Visit</p>
+        <p class="text-sm leading-relaxed mb-4" style="color:rgba(250,249,247,.75)">Main Market, Fateh Nagar<br/>Block A, Main Bazaar, Tilak Nagar<br/>New Delhi 110018</p>
+        <p class="text-sm" style="color:rgba(250,249,247,.5)">Mon–Sat 10:30–20:30<br/>Sun by appointment</p>
+      </div>
+    </div>
+
+    <div class="border-t py-8 flex flex-col md:flex-row items-center justify-between gap-4" style="border-color:rgba(250,249,247,.1)">
+      <p class="text-xs" style="color:rgba(250,249,247,.4)">&copy; 2026 Design Machine — The Mod Cut Studio. All rights reserved.</p>
+      <div class="flex items-center gap-8">
+        <p class="text-xs" style="color:rgba(250,249,247,.4)">Exchange policy · Privacy · Terms</p>
+        <button id="back-to-top" class="label hover:text-champagne transition-colors duration-500 flex items-center gap-2" style="color:rgba(250,249,247,.7)" aria-label="Back to top">
+          Top <span aria-hidden="true">&uarr;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Oversized clipped wordmark -->
+  <div class="relative select-none" aria-hidden="true">
+    <p class="wordmark-clip font-display text-center whitespace-nowrap translate-y-[22%]" style="color:rgba(250,249,247,.06)">DESIGN&nbsp;MACHINE</p>
+  </div>
+</footer>
+
+<!-- ======================= JAVASCRIPT ======================= -->
+<script>
+(function () {
+  'use strict';
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- 1. Preloader : curtain reveal into hero ---------- */
+  const preloader = document.getElementById('preloader');
+  const heroTitle = document.getElementById('hero-title');
+  function enterSite() {
+    if (!preloader || preloader.classList.contains('done')) return;
+    preloader.classList.add('done');
+    document.body.style.overflow = '';
+    // Trigger the hero line-mask reveal just after the curtain starts lifting
+    setTimeout(() => { if (heroTitle) heroTitle.classList.add('revealed'); }, 250);
+    setTimeout(() => { preloader.remove(); }, 1400);
+  }
+  document.body.style.overflow = 'hidden';
+  window.addEventListener('load', () => setTimeout(enterSite, prefersReduced ? 0 : 1700));
+  // Safety net: never trap the user
+  setTimeout(enterSite, 4200);
+
+  /* ---------- 2. Nav : transparent -> blurred solid on scroll ---------- */
+  const nav = document.getElementById('nav');
+  const onScrollNav = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+  onScrollNav();
+  window.addEventListener('scroll', onScrollNav, { passive: true });
+
+  /* ---------- 3. Mobile overlay menu ---------- */
+  const burger = document.getElementById('burger');
+  const menu = document.getElementById('mobile-menu');
+  let menuOpen = false;
+  function toggleMenu(open) {
+    menuOpen = open;
+    menu.classList.toggle('open', open);
+    burger.classList.toggle('active', open);
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', () => toggleMenu(!menuOpen));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) toggleMenu(false); });
+
+  /* ---------- 4. Scroll reveals (IntersectionObserver) ---------- */
+  // Stagger delays live in inline styles; move them to a custom property so
+  // the reveal transition can use them without leaking into hover transitions.
+  document.querySelectorAll('.reveal[style*="transition-delay"]').forEach(el => {
+    const d = el.style.transitionDelay;
+    el.style.setProperty('--stagger', d);
+    el.style.transitionDelay = '';
+  });
+
+  // Group mask-lines under their heading so lines stagger together
+  document.querySelectorAll('h1, h2, h3').forEach(h => {
+    if (h.querySelector('.mask-line')) h.classList.add('mask-group');
+  });
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Line-mask headings: revealed via the .revealed class (CSS handles the slide-up)
+  const ioMask = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        ioMask.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -4% 0px' });
+  document.querySelectorAll('.mask-group').forEach(h => ioMask.observe(h));
+
+  // Safety net: anything still hidden shortly after load becomes visible,
+  // so no section can ever get stuck mid-transition.
+  window.addEventListener('load', () => setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.is-in), .mask-group:not(.revealed)').forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight * 1.2) { el.classList.add('is-in'); el.classList.add('revealed'); }
+    });
+  }, 2600));
+
+  /* ---------- 5. Parallax : backgrounds drift at 0.85x scroll speed ---------- */
+  const parallaxEls = Array.from(document.querySelectorAll('.parallax'));
+  let ticking = false;
+  function applyParallax() {
+    const vh = window.innerHeight;
+    parallaxEls.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.bottom < -200 || rect.top > vh + 200) return;
+      const centerOffset = rect.top + rect.height / 2 - vh / 2;
+      // element moves at 0.85x of normal scroll => shift by 0.15 * offset
+      el.style.transform = 'translate3d(0,' + (-centerOffset * 0.15).toFixed(1) + 'px,0)';
+    });
+    ticking = false;
+  }
+  if (!prefersReduced && parallaxEls.length) {
+    window.addEventListener('scroll', () => {
+      if (!ticking) { requestAnimationFrame(applyParallax); ticking = true; }
+    }, { passive: true });
+    applyParallax();
+  }
+
+  /* ---------- 6. Collection filters (Occasion / Fabric / Silhouette) ---------- */
+  const state = { occasion: 'all', fabric: 'all', silhouette: 'all' };
+  const products = Array.from(document.querySelectorAll('.prod'));
+  const countEl = document.getElementById('filter-count');
+  const emptyEl = document.getElementById('filter-empty');
+  const gridEl = document.getElementById('collection-grid');
+
+  function applyFilters() {
+    let visible = 0;
+    products.forEach(p => {
+      const ok =
+        (state.occasion === 'all' || p.dataset.occasion === state.occasion) &&
+        (state.fabric === 'all' || p.dataset.fabric === state.fabric) &&
+        (state.silhouette === 'all' || p.dataset.silhouette === state.silhouette);
+      if (ok) {
+        p.classList.remove('hidden-item');
+        // next frame: fade/rise back in
+        requestAnimationFrame(() => p.classList.remove('is-out'));
+        visible++;
+      } else {
+        p.classList.add('is-out');
+        // keep it out of flow only after the fade-out has played
+        setTimeout(() => { if (p.classList.contains('is-out')) p.classList.add('hidden-item'); }, 560);
+      }
+    });
+    countEl.textContent = 'Showing ' + visible + (visible === 1 ? ' piece' : ' pieces');
+    emptyEl.classList.toggle('hidden', visible !== 0);
+    gridEl.classList.toggle('hidden', visible === 0);
+  }
+
+  document.querySelectorAll('[data-filter-group]').forEach(group => {
+    group.addEventListener('click', e => {
+      const chip = e.target.closest('.chip');
+      if (!chip) return;
+      const key = group.dataset.filterGroup;
+      state[key] = chip.dataset.value;
+      group.querySelectorAll('.chip').forEach(c => {
+        c.classList.toggle('active', c === chip);
+        c.setAttribute('aria-pressed', String(c === chip));
+      });
+      applyFilters();
+    });
+  });
+
+  function resetFilters() {
+    Object.keys(state).forEach(k => state[k] = 'all');
+    document.querySelectorAll('[data-filter-group]').forEach(group => {
+      group.querySelectorAll('.chip').forEach(c => {
+        const isAll = c.dataset.value === 'all';
+        c.classList.toggle('active', isAll);
+        c.setAttribute('aria-pressed', String(isAll));
+      });
+    });
+    applyFilters();
+  }
+  document.getElementById('filter-reset').addEventListener('click', resetFilters);
+  document.getElementById('filter-empty-reset').addEventListener('click', resetFilters);
+
+  /* ---------- 7. Booking form ---------- */
+  const form = document.getElementById('booking-form');
+  const success = document.getElementById('form-success');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    // TODO: POST to your endpoint (Formspree / Netlify Forms / own API)
+    success.classList.remove('hidden');
+    form.querySelectorAll('input, select, textarea, button').forEach(el => el.disabled = true);
+    success.scrollIntoView({ behavior: prefersReduced ? 'auto' : 'smooth', block: 'center' });
+  });
+
+  /* ---------- 8. Back to top ---------- */
+  document.getElementById('back-to-top').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: prefersReduced ? 'auto' : 'smooth' });
+  });
+
+  /* ---------- 9. Smooth anchor scrolling with nav offset ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const id = link.getAttribute('href');
+      if (id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      const y = target.getBoundingClientRect().top + window.scrollY - 60;
+      window.scrollTo({ top: y, behavior: prefersReduced ? 'auto' : 'smooth' });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
